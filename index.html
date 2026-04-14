@@ -15,7 +15,6 @@ background:linear-gradient(135deg,#0f0f0f,#1c1c1c);
 color:#fff
 }
 
-/* GRID FIX (2 PRODUCTS ALWAYS) */
 .products{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -97,7 +96,6 @@ input{width:100%;padding:10px;margin:8px 0;border:none;border-radius:6px}
 
 .backBtn{background:#fff;color:#000;margin-bottom:10px}
 
-/* REVIEWS */
 .review-slider{overflow:hidden}
 .review-track{display:flex;animation:scrollReviews 20s linear infinite}
 .review-box{
@@ -147,17 +145,6 @@ display:none;
 <h2 class="section-title">🎁 Combo Offers</h2>
 <section id="comboPage" class="products"></section>
 
-<!-- REVIEWS -->
-<h2 class="section-title">⭐ Customer Reviews</h2>
-<div class="review-slider">
-<div class="review-track">
-<div class="review-box">Amazing fragrance 🔥 - Rahul ⭐⭐⭐⭐⭐</div>
-<div class="review-box">Combo best hai - Aman ⭐⭐⭐⭐⭐</div>
-<div class="review-box">Premium smell - Pooja ⭐⭐⭐⭐⭐</div>
-<div class="review-box">Fast delivery - Neha ⭐⭐⭐⭐☆</div>
-</div>
-</div>
-
 <!-- ORDER PAGE -->
 <section id="orderPage" class="orderPage">
 <button class="backBtn" onclick="goBack()">⬅ Back</button>
@@ -176,13 +163,24 @@ display:none;
 
 <button type="submit">Confirm Order (COD)</button>
 </form>
+
+<!-- ⭐ REVIEWS BELOW FORM -->
+<h2 class="section-title">⭐ Customer Reviews</h2>
+<div class="review-slider">
+<div class="review-track">
+<div class="review-box">Amazing fragrance 🔥 - Rahul ⭐⭐⭐⭐⭐</div>
+<div class="review-box">Combo best hai - Aman ⭐⭐⭐⭐⭐</div>
+<div class="review-box">Premium smell - Pooja ⭐⭐⭐⭐⭐</div>
+<div class="review-box">Fast delivery - Neha ⭐⭐⭐⭐☆</div>
+</div>
+</div>
+
 </section>
 
 <div id="popup" class="popup"></div>
 
 <script>
 
-/* PRODUCTS (ALL BACK) */
 let perfumes=[
 {name:"Royal Oud",price:799,old:1999},
 {name:"Midnight Musk",price:899,old:2199},
@@ -210,7 +208,6 @@ let priceMap={};
 let container=document.getElementById('productPage');
 let comboContainer=document.getElementById('comboPage');
 
-/* LOAD PRODUCTS */
 perfumes.forEach((p,i)=>{
 priceMap[p.name]=p.price;
 let stock=Math.floor(Math.random()*3)+2;
@@ -226,7 +223,6 @@ container.innerHTML+=`
 </div>`;
 });
 
-/* LOAD COMBO */
 combos.forEach((c,i)=>{
 priceMap[c.name]=c.price;
 
@@ -241,7 +237,6 @@ comboContainer.innerHTML+=`
 </div>`;
 });
 
-/* FORM */
 function openForm(product,qtyId){
 let qty=document.getElementById(qtyId).value;
 
@@ -264,7 +259,6 @@ document.getElementById('productPage').style.display='grid';
 document.getElementById('comboPage').style.display='grid';
 }
 
-/* WHATSAPP */
 function submitForm(e){
 e.preventDefault();
 
