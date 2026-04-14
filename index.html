@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Luxury Perfume Store</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 body{background:linear-gradient(135deg,#0f0f0f,#1c1c1c);color:#fff}
@@ -12,17 +13,22 @@ body{background:linear-gradient(135deg,#0f0f0f,#1c1c1c);color:#fff}
 .marquee span{display:inline-block;padding-left:100%;animation:scroll 12s linear infinite}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
 header{text-align:center;padding:15px;font-size:26px;font-weight:600}
+
 .products{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:20px}
 @media(max-width:1000px){.products{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.products{grid-template-columns:repeat(2,1fr)}}
+
 .card{background:rgba(255,255,255,0.05);padding:12px;border-radius:16px;text-align:center}
 .card img{width:100%;height:230px;object-fit:cover;border-radius:12px}
-button{background:#00ffae;border:none;padding:8px 12px;border-radius:8px;margin:4px}
+
+button{background:#00ffae;border:none;padding:8px 12px;border-radius:8px;margin:4px;cursor:pointer}
 select{padding:6px;border-radius:6px;margin-top:5px}
+
 .orderPage,.thankyou{display:none;padding:20px;text-align:center}
 input{width:100%;padding:10px;margin:8px 0;border:none;border-radius:6px}
 </style>
 </head>
+
 <body>
 
 <div class="marquee"><span>🔥 Luxury Perfume Sale | Buy 2 Get 1 Free 🔥</span></div>
@@ -53,40 +59,92 @@ input{width:100%;padding:10px;margin:8px 0;border:none;border-radius:6px}
 </section>
 
 <script>
-let perfumes=["Royal Oud","Midnight Musk","Fresh Citrus","Dark Night","Ocean Breeze","Golden Spice","Royal Rose","Ice Cool","Black Oud","Silver Mist"];
+
+// ✅ 20 PRODUCTS
+let perfumes=[
+"Royal Oud","Midnight Musk","Fresh Citrus","Dark Night","Ocean Breeze",
+"Golden Spice","Royal Rose","Ice Cool","Black Oud","Silver Mist",
+"Aqua Fresh","Night King","White Musk","Red Rose","Blue Wave",
+"Spicy Oud","Cool Mint","Urban Man","Wild Stone","Luxury Gold"
+];
+
 let container=document.getElementById('productPage');
 
+// clear first
+container.innerHTML="";
+
+// create cards
 perfumes.forEach((p,i)=>{
-container.innerHTML+=`
-<div class="card">
-<img src="https://source.unsplash.com/400x400/?luxury,perfume,${i}">
+let div=document.createElement('div');
+div.className="card";
+
+div.innerHTML=`
+<img src="https://source.unsplash.com/400x400/?luxury,perfume&sig=${i}">
 <h3>${p}</h3>
-<select id="p${i}"><option>1</option><option>2</option></select>
+
+<div style="margin:5px 0;">
+<span style="text-decoration:line-through;color:#aaa;">₹1999</span>
+<span style="color:#00ffae;font-weight:bold;">₹${699+Math.floor(Math.random()*300)}</span>
+</div>
+
+<select id="p${i}">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+</select>
+
 <button onclick="openForm('${p}','p${i}')">Order COD</button>
-</div>`;
+`;
+
+container.appendChild(div);
 });
 
+// open form
 function openForm(product,id){
 let qty=document.getElementById(id).value;
 document.getElementById('productPage').style.display='none';
 document.getElementById('orderPage').style.display='block';
+
 document.getElementById('selectedProduct').value=product;
 document.getElementById('selectedQty').value=qty;
 }
 
+// submit form
 function submitForm(e){
 e.preventDefault();
+
+let name=document.getElementById('name').value;
+let phone=document.getElementById('phone').value;
+let address=document.getElementById('address').value;
+let city=document.getElementById('city').value;
+let state=document.getElementById('state').value;
+let pincode=document.getElementById('pincode').value;
+let product=document.getElementById('selectedProduct').value;
+let qty=document.getElementById('selectedQty').value;
+
 document.getElementById('orderPage').style.display='none';
 document.getElementById('thankyou').style.display='block';
 
+// ✅ FULL ORDER MSG
 let number="91XXXXXXXXXX";
-let msg="New COD Order";
-window.open(`https://wa.me/${number}?text=${msg}`,'_blank');
+let msg=`COD Order:
+Name: ${name}
+Phone: ${phone}
+Address: ${address}
+City: ${city}
+State: ${state}
+Pincode: ${pincode}
+Product: ${product}
+Qty: ${qty}`;
+
+window.open(`https://wa.me/${number}?text=${encodeURIComponent(msg)}`,'_blank');
 }
 
+// upsell
 function upsell(){
 alert("Extra product added! Our team will confirm.");
 }
+
 </script>
 
 </body>
