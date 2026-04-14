@@ -15,38 +15,7 @@ background:linear-gradient(135deg,#0f0f0f,#1c1c1c);
 color:#fff
 }
 
-.marquee{
-background:#000;
-color:#00ffae;
-padding:10px;
-overflow:hidden
-}
-
-.marquee span{
-display:inline-block;
-padding-left:100%;
-animation:scroll 10s linear infinite
-}
-
-@keyframes scroll{
-0%{transform:translateX(0)}
-100%{transform:translateX(-100%)}
-}
-
-header{
-text-align:center;
-padding:15px;
-font-size:24px;
-font-weight:600
-}
-
-.timer{
-text-align:center;
-background:#ff4d4d;
-padding:10px;
-font-weight:600
-}
-
+/* GRID FIX (2 PRODUCTS ALWAYS) */
 .products{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -54,9 +23,17 @@ gap:12px;
 padding:12px
 }
 
-@media(max-width:500px){
-.products{grid-template-columns:1fr;}
+.marquee{background:#000;color:#00ffae;padding:10px;overflow:hidden}
+.marquee span{display:inline-block;padding-left:100%;animation:scroll 10s linear infinite}
+
+@keyframes scroll{
+0%{transform:translateX(0)}
+100%{transform:translateX(-100%)}
 }
+
+header{text-align:center;padding:15px;font-size:24px;font-weight:600}
+
+.timer{text-align:center;background:#ff4d4d;padding:10px;font-weight:600}
 
 .card{
 background:rgba(255,255,255,0.05);
@@ -72,8 +49,6 @@ animation:fadeIn 0.5s ease;
 from{opacity:0; transform:translateY(10px)}
 to{opacity:1; transform:translateY(0)}
 }
-
-.card:hover{transform:translateY(-3px)}
 
 .card img{
 width:100%;
@@ -98,12 +73,7 @@ font-weight:600;
 color:#000;
 }
 
-select{
-width:100%;
-padding:6px;
-margin-top:5px;
-border-radius:6px
-}
+select{width:100%;padding:6px;margin-top:5px;border-radius:6px}
 
 .badge{
 position:absolute;
@@ -121,24 +91,15 @@ border-radius:5px
 
 .orderPage{display:none;padding:15px}
 
-input{
-width:100%;
-padding:10px;
-margin:8px 0;
-border:none;
-border-radius:6px
-}
+input{width:100%;padding:10px;margin:8px 0;border:none;border-radius:6px}
 
 .trust{text-align:center;margin:10px;font-size:13px}
 
 .backBtn{background:#fff;color:#000;margin-bottom:10px}
 
-/* REVIEW */
+/* REVIEWS */
 .review-slider{overflow:hidden}
-.review-track{
-display:flex;
-animation:scrollReviews 20s linear infinite
-}
+.review-track{display:flex;animation:scrollReviews 20s linear infinite}
 .review-box{
 min-width:200px;
 margin:10px;
@@ -183,6 +144,21 @@ display:none;
 <h2 class="section-title">🧴 Premium Perfumes</h2>
 <section id="productPage" class="products"></section>
 
+<h2 class="section-title">🎁 Combo Offers</h2>
+<section id="comboPage" class="products"></section>
+
+<!-- REVIEWS -->
+<h2 class="section-title">⭐ Customer Reviews</h2>
+<div class="review-slider">
+<div class="review-track">
+<div class="review-box">Amazing fragrance 🔥 - Rahul ⭐⭐⭐⭐⭐</div>
+<div class="review-box">Combo best hai - Aman ⭐⭐⭐⭐⭐</div>
+<div class="review-box">Premium smell - Pooja ⭐⭐⭐⭐⭐</div>
+<div class="review-box">Fast delivery - Neha ⭐⭐⭐⭐☆</div>
+</div>
+</div>
+
+<!-- ORDER PAGE -->
 <section id="orderPage" class="orderPage">
 <button class="backBtn" onclick="goBack()">⬅ Back</button>
 <h2>Complete Your Order</h2>
@@ -206,36 +182,71 @@ display:none;
 
 <script>
 
+/* PRODUCTS (ALL BACK) */
 let perfumes=[
-{name:"Royal Oud",price:799},
-{name:"Midnight Musk",price:899},
-{name:"Fresh Citrus",price:699},
-{name:"Dark Night",price:999}
+{name:"Royal Oud",price:799,old:1999},
+{name:"Midnight Musk",price:899,old:2199},
+{name:"Fresh Citrus",price:699,old:1799},
+{name:"Dark Night",price:999,old:2499},
+{name:"Ocean Breeze",price:749,old:1899},
+{name:"Golden Spice",price:849,old:2099},
+{name:"Silver Mist",price:799,old:1999},
+{name:"Black Amber",price:999,old:2499},
+{name:"Cool Water",price:699,old:1799},
+{name:"Red Desire",price:899,old:2199},
+{name:"Blue Wave",price:749,old:1899},
+{name:"Night King",price:1099,old:2699}
+];
+
+let combos=[
+{name:"Luxury Combo Pack",price:1299,old:2999},
+{name:"Couple Special Combo",price:1499,old:3499},
+{name:"Party Combo Pack",price:1199,old:2799},
+{name:"Premium Gift Combo",price:1599,old:3999}
 ];
 
 let priceMap={};
-let container=document.getElementById('productPage');
 
+let container=document.getElementById('productPage');
+let comboContainer=document.getElementById('comboPage');
+
+/* LOAD PRODUCTS */
 perfumes.forEach((p,i)=>{
 priceMap[p.name]=p.price;
-
 let stock=Math.floor(Math.random()*3)+2;
 
 container.innerHTML+=`
 <div class="card">
 <img src="https://source.unsplash.com/400x400/?perfume,${p.name}">
 <h3>${p.name}</h3>
-<div class="price"><span class="new">₹${p.price}</span></div>
+<div class="price"><span class="old">₹${p.old}</span> <span class="new">₹${p.price}</span></div>
 <div class="urgency">⚡ Only ${stock} left</div>
 <select id="p${i}"><option>1</option><option>2</option><option>3</option></select>
 <button onclick="openForm('${p.name}','p${i}')">Order Now</button>
 </div>`;
 });
 
+/* LOAD COMBO */
+combos.forEach((c,i)=>{
+priceMap[c.name]=c.price;
+
+comboContainer.innerHTML+=`
+<div class="card">
+<div class="badge">Combo</div>
+<img src="https://source.unsplash.com/400x400/?perfume,gift">
+<h3>${c.name}</h3>
+<div class="price"><span class="old">₹${c.old}</span> <span class="new">₹${c.price}</span></div>
+<select id="c${i}"><option>1</option><option>2</option></select>
+<button onclick="openForm('${c.name}','c${i}')">Order Combo</button>
+</div>`;
+});
+
+/* FORM */
 function openForm(product,qtyId){
 let qty=document.getElementById(qtyId).value;
 
 document.getElementById('productPage').style.display='none';
+document.getElementById('comboPage').style.display='none';
 document.getElementById('orderPage').style.display='block';
 
 document.getElementById('selectedProduct').value=product;
@@ -250,8 +261,10 @@ window.scrollTo(0,0);
 function goBack(){
 document.getElementById('orderPage').style.display='none';
 document.getElementById('productPage').style.display='grid';
+document.getElementById('comboPage').style.display='grid';
 }
 
+/* WHATSAPP */
 function submitForm(e){
 e.preventDefault();
 
