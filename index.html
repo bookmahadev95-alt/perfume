@@ -63,9 +63,7 @@ position:relative;
 transition:0.3s
 }
 
-.card:hover{
-transform:translateY(-3px)
-}
+.card:hover{transform:translateY(-3px)}
 
 .card img{
 width:100%;
@@ -107,15 +105,8 @@ font-size:10px;
 border-radius:5px
 }
 
-.section-title{
-text-align:center;
-margin-top:15px
-}
-
-.urgency{
-color:#ff4d4d;
-font-size:12px
-}
+.section-title{text-align:center;margin-top:15px}
+.urgency{color:#ff4d4d;font-size:12px}
 
 .orderPage{display:none;padding:15px}
 
@@ -185,7 +176,7 @@ display:none;
 <h2 class="section-title">🎁 Combo Offers</h2>
 <section id="comboPage" class="products"></section>
 
-<!-- ⭐ REVIEWS -->
+<!-- REVIEWS -->
 <h2 class="section-title">⭐ Customer Reviews</h2>
 <div class="review-slider">
 <div class="review-track">
@@ -227,8 +218,29 @@ display:none;
 <script>
 
 /* PRODUCTS */
-let perfumes=["Royal Oud","Midnight Musk","Fresh Citrus","Dark Night","Ocean Breeze","Golden Spice"];
-let combos=["Oud Combo","Musk Combo","Citrus Combo","Night Combo"];
+let perfumes=[
+{name:"Royal Oud",price:799,old:1999,tag:"Bestseller"},
+{name:"Midnight Musk",price:899,old:2199,tag:"Premium"},
+{name:"Fresh Citrus",price:699,old:1799,tag:"Sale"},
+{name:"Dark Night",price:999,old:2499,tag:"Luxury"},
+{name:"Ocean Breeze",price:749,old:1899,tag:"Trending"},
+{name:"Golden Spice",price:849,old:2099,tag:"Hot"},
+{name:"Silver Mist",price:799,old:1999,tag:"New"},
+{name:"Black Amber",price:999,old:2499,tag:"Luxury"},
+{name:"Cool Water",price:699,old:1799,tag:"Sale"},
+{name:"Red Desire",price:899,old:2199,tag:"Premium"},
+{name:"Blue Wave",price:749,old:1899,tag:"Trending"},
+{name:"Night King",price:1099,old:2699,tag:"Luxury"}
+];
+
+let combos=[
+{name:"Luxury Combo Pack",price:1299,old:2999},
+{name:"Couple Special Combo",price:1499,old:3499},
+{name:"Party Combo Pack",price:1199,old:2799},
+{name:"Premium Gift Combo",price:1599,old:3999},
+{name:"Office Daily Combo",price:999,old:2499},
+{name:"Long Lasting Combo",price:1399,old:3299}
+];
 
 let container=document.getElementById('productPage');
 let comboContainer=document.getElementById('comboPage');
@@ -236,26 +248,28 @@ let comboContainer=document.getElementById('comboPage');
 perfumes.forEach((p,i)=>{
 container.innerHTML+=`
 <div class="card">
-<div class="badge">Best</div>
-<img src="https://source.unsplash.com/400x400/?perfume">
-<h3>${p}</h3>
-<div class="price"><span class="old">₹1999</span> <span class="new">₹799</span></div>
+<div class="badge">${p.tag}</div>
+<img src="https://source.unsplash.com/400x400/?perfume,${p.name}">
+<h3>${p.name}</h3>
+<p style="font-size:12px;color:#aaa">Long lasting premium fragrance</p>
+<div class="price"><span class="old">₹${p.old}</span> <span class="new">₹${p.price}</span></div>
 <div class="urgency">⚡ Only ${Math.floor(Math.random()*5)+1} left</div>
 <select id="p${i}"><option>1</option><option>2</option><option>3</option></select>
-<button onclick="openForm('${p}','p${i}')">Order COD</button>
+<button onclick="openForm('${p.name}','p${i}')">Order Now</button>
 </div>`;
 });
 
 combos.forEach((c,i)=>{
 comboContainer.innerHTML+=`
 <div class="card">
-<div class="badge">Hot</div>
-<img src="https://source.unsplash.com/400x400/?perfume,bottle">
-<h3>${c}</h3>
-<div class="price"><span class="old">₹2999</span> <span class="new">₹1299</span></div>
+<div class="badge">Combo</div>
+<img src="https://source.unsplash.com/400x400/?perfume,gift,${i}">
+<h3>${c.name}</h3>
+<p style="font-size:12px;color:#aaa">Best value combo offer</p>
+<div class="price"><span class="old">₹${c.old}</span> <span class="new">₹${c.price}</span></div>
 <div class="urgency">🔥 Buy 2 Get 1 Free</div>
 <select id="c${i}"><option>1</option><option>2</option></select>
-<button onclick="openForm('${c}','c${i}')">Order Combo</button>
+<button onclick="openForm('${c.name}','c${i}')">Order Combo</button>
 </div>`;
 });
 
