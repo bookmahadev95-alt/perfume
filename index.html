@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxury Perfume Store | 2-Column Layout</title>
+    <title>Luxe Aroma | 20+ Premium Perfumes</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #D4AF37; --accent: #00ffae; --dark: #0f0f0f; }
@@ -18,68 +18,43 @@
         header { text-align:center; padding:20px 10px 5px; font-size:28px; font-weight:600; color:var(--gold); letter-spacing:2px; text-transform: uppercase; }
         
         /* Trust Badges */
-        .trust-badges { 
-            display: flex; justify-content: space-around; padding: 10px 5px; 
-            background: rgba(255,255,255,0.05); margin-bottom: 5px;
-        }
+        .trust-badges { display: flex; justify-content: space-around; padding: 10px 5px; background: rgba(255,255,255,0.05); margin-bottom: 5px; }
         .badge-item { text-align: center; font-size: 9px; font-weight: 600; color: #ccc; }
         .badge-item span { display: block; font-size: 16px; color: var(--gold); }
 
         .timer { text-align:center; background:#ff4d4d; padding:6px; font-weight:600; font-size:12px; }
-
         .section-title { text-align:center; margin:20px 0 10px; font-size:1.2rem; color:var(--gold); text-transform:uppercase; }
 
-        /* --- FIXED 2-PRODUCT ROW LAYOUT --- */
-        .products { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); /* Har row mein 2 products */
-            gap: 10px; 
-            padding: 10px; 
-            max-width: 900px; 
-            margin: auto; 
-        }
-
-        .card { 
-            background:rgba(255,255,255,0.03); 
-            border:1px solid rgba(212, 175, 55, 0.2); 
-            padding:10px; 
-            border-radius:12px; 
-            text-align:center; 
-            position:relative;
-        }
+        /* 2-Column Product Layout */
+        .products { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; max-width: 900px; margin: auto; }
+        .card { background:rgba(255,255,255,0.03); border:1px solid rgba(212, 175, 55, 0.2); padding:10px; border-radius:12px; text-align:center; position:relative; }
         .card img { width:100%; height:120px; object-fit:cover; border-radius:8px; margin-bottom: 5px; }
         .offer-tag { position:absolute; top:5px; right:5px; background:var(--gold); color:#000; padding:2px 5px; font-size:8px; font-weight:bold; border-radius:3px; }
         
         .price { margin:5px 0; }
         .old { text-decoration:line-through; color:#888; font-size:10px; }
         .new { color:var(--accent); font-weight:600; font-size:15px; display: block; }
-        .urgency { color:#ff4d4d; font-size:9px; font-weight:600; margin-bottom:8px; }
+        
+        select { width:100%; padding:8px; margin-bottom:8px; border-radius:6px; border:none; background:#222; color:#fff; font-size: 11px; }
+        button { background:linear-gradient(45deg, var(--gold), #f3e092); border:none; padding:10px; border-radius:8px; cursor:pointer; width:100%; font-weight:700; color:#000; font-size: 12px; }
 
-        select { width:100%; padding:8px; margin-bottom:8px; border-radius:6px; border:none; background:#222; color:#fff; font-size: 12px; }
-        button { 
-            background:linear-gradient(45deg, var(--gold), #f3e092); border:none; padding:10px; 
-            border-radius:8px; cursor:pointer; width:100%; font-weight:700; color:#000; font-size: 12px;
-        }
-
-        /* Checkout Page */
+        /* Order Page */
         .orderPage { display:none; padding:20px; max-width:500px; margin:auto; }
         input { width:100%; padding:12px; margin:8px 0; border-radius:10px; border:1px solid #333; background:#222; color:#fff; }
 
-        /* Sale Popup */
-        .sale-popup {
-            position: fixed; bottom: 20px; left: 20px; background: #fff; color: #000;
-            padding: 10px 15px; border-radius: 12px; display: none; z-index: 1000; font-size: 12px;
-            border-left: 5px solid var(--gold); box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-        }
-
-        .review-track { display:flex; overflow-x:auto; gap:10px; padding:15px; }
-        .review-box { min-width:200px; background:#1a1a1a; padding:10px; border-radius:10px; font-size:11px; }
+        /* Reviews Section */
+        .review-container { padding: 20px 10px; background: rgba(0,0,0,0.5); margin-top: 20px; }
+        .review-scroll { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 10px; scrollbar-width: none; }
+        .review-scroll::-webkit-scrollbar { display: none; }
+        .review-box { min-width: 260px; background: #1a1a1a; padding: 15px; border-radius: 12px; border-left: 4px solid var(--gold); }
+        .stars { color: var(--gold); font-size: 12px; margin-bottom: 5px; }
+        .rev-name { font-weight: 600; font-size: 13px; color: var(--accent); display: block; margin-top: 5px; }
     </style>
 </head>
 <body>
 
     <div class="marquee">
-        <span>🔥 FREE SHIPPING | CASH ON DELIVERY | ALL INDIA DELIVERY 🔥</span>
+        <span>🔥 FREE SHIPPING | CASH ON DELIVERY | 100% PREMIUM QUALITY | ALL INDIA DELIVERY 🔥</span>
     </div>
 
     <header>Luxe Aroma</header>
@@ -96,8 +71,24 @@
         <h2 class="section-title">🧴 Best Sellers</h2>
         <section id="productPage" class="products"></section>
 
-        <h2 class="section-title">🎁 Exclusive Combos</h2>
+        <h2 class="section-title">🎁 Money Saver Combos</h2>
         <section id="comboPage" class="products"></section>
+
+        <h2 class="section-title">⭐ Happy Customers</h2>
+        <div class="review-container">
+            <div class="review-scroll">
+                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Amazing fragrance! Royal Oud smells very expensive. Highly recommended."<span class="rev-name">- Rahul Verma, Delhi</span></div>
+                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Best combo pack for gifting. My brother loved the Trio collection!"<span class="rev-name">- Sneha Kapoor, Mumbai</span></div>
+                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Fast delivery and genuine product. COD option made it easy for me."<span class="rev-name">- Vikram Singh, Jaipur</span></div>
+                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Midnight Musk ki khushbu bohot hi premium hai. 8-10 ghante chalti hai."<span class="rev-name">- Aman Deep, Punjab</span></div>
+                <div class="review-box"><div class="stars">⭐⭐⭐⭐☆</div>"Good packaging and very safe delivery. Fragrance is 10/10."<span class="rev-name">- Pooja Rao, Bangalore</span></div>
+                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Maine 2 packs mangwaye, Free Shipping mili. Great deal!"<span class="rev-name">- Karan Joshi, Pune</span></div>
+                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Party Pack is best for office and evening functions. Long lasting."<span class="rev-name">- Neha Gupta, Lucknow</span></div>
+                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Ocean Blue perfume is very fresh. Perfect for summer."<span class="rev-name">- Sumit Malik, Haryana</span></div>
+                <div class="review-box"><div class="stars">⭐⭐⭐⭐☆</div>"Value for money. Branded perfumes se kam nahi hai."<span class="rev-name">- Rohit Das, Kolkata</span></div>
+                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"All India delivery was smooth. Got it in 4 days in Assam."<span class="rev-name">- Jatin, Guwahati</span></div>
+            </div>
+        </div>
     </div>
 
     <section id="orderPage" class="orderPage">
@@ -106,20 +97,18 @@
         <div style="background:rgba(212, 175, 55, 0.1); padding:15px; border-radius:12px; border: 1px dashed var(--gold); margin-bottom:20px;">
             <p id="selectedItemName" style="font-weight:bold;"></p>
             <p id="totalDisplay" style="font-size:20px; color:var(--accent); font-weight: bold;"></p>
-            <p style="font-size: 11px; color: #aaa;">Delivery: FREE | Mode: COD</p>
+            <p style="font-size: 11px; color: #aaa;">Delivery: FREE | Payment: COD</p>
         </div>
 
         <form onsubmit="sendToWhatsApp(event)">
-            <input id="userName" type="text" placeholder="Full Name" required>
+            <input id="userName" type="text" placeholder="Aapka Pura Naam" required>
             <input id="userPhone" type="tel" placeholder="Mobile Number" pattern="[0-9]{10}" required>
-            <input id="userAddress" type="text" placeholder="Full Address" required>
-            <input id="userCity" type="text" placeholder="City" required>
+            <input id="userAddress" type="text" placeholder="Ghar No., Area, Landmark" required>
+            <input id="userCity" type="text" placeholder="Shehar (City)" required>
             <input id="userPin" type="number" placeholder="Pincode" required>
             <button type="submit">Order Confirm Karein (COD)</button>
         </form>
     </section>
-
-    <div id="salePopup" class="sale-popup"></div>
 
     <script>
         const perfumes = [
@@ -149,7 +138,6 @@
                     <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=300" alt="perfume">
                     <h3 style="font-size:12px; margin:5px 0;">${p.name}</h3>
                     <div class="price"><span class="old">₹${p.old}</span> <span class="new">₹${p.price}</span></div>
-                    <div class="urgency">⚡ Only ${Math.floor(Math.random()*4)+2} left</div>
                     <select id="qP${i}"><option value="1">1 Qty</option><option value="2">2 Qty</option></select>
                     <button onclick="openOrder('${p.name}', ${p.price}, 'qP${i}')">Order</button>
                 </div>`;
@@ -194,17 +182,6 @@
             window.open(`https://wa.me/918739853696?text=${msg}`, '_blank');
         }
 
-        function showPopup() {
-            const popup = document.getElementById('salePopup');
-            const pNames = ["Arun", "Priya", "Vikram", "Isha", "Kunal", "Deepa"];
-            setInterval(() => {
-                const name = pNames[Math.floor(Math.random()*pNames.length)];
-                popup.innerHTML = `🛍️ <b>${name}</b> just bought ${sProduct || 'a perfume'}!`;
-                popup.style.display = 'block';
-                setTimeout(() => { popup.style.display = 'none'; }, 4000);
-            }, 12000);
-        }
-
         let t = 600;
         setInterval(() => {
             let m = Math.floor(t/60); let s = t % 60;
@@ -213,7 +190,6 @@
         }, 1000);
 
         init();
-        showPopup();
     </script>
 </body>
 </html>
