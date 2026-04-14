@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Buy Premium Perfumes Online | COD Available</title>
+<title>Luxury Perfume Store</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -19,7 +19,6 @@ color:#fff
 background:#000;
 color:#00ffae;
 padding:10px;
-white-space:nowrap;
 overflow:hidden
 }
 
@@ -41,6 +40,13 @@ font-size:24px;
 font-weight:600
 }
 
+.timer{
+text-align:center;
+background:#ff4d4d;
+padding:10px;
+font-weight:600
+}
+
 .products{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -50,7 +56,6 @@ padding:12px
 
 .card{
 background:rgba(255,255,255,0.05);
-backdrop-filter:blur(10px);
 padding:10px;
 border-radius:12px;
 text-align:center;
@@ -69,19 +74,9 @@ object-fit:cover;
 border-radius:10px
 }
 
-.price{
-margin:6px 0
-}
-
-.old{
-text-decoration:line-through;
-color:#aaa
-}
-
-.new{
-color:#00ffae;
-font-weight:600
-}
+.price{margin:6px 0}
+.old{text-decoration:line-through;color:#aaa}
+.new{color:#00ffae;font-weight:600}
 
 button{
 background:#00ffae;
@@ -114,8 +109,7 @@ border-radius:5px
 
 .section-title{
 text-align:center;
-margin-top:15px;
-font-size:18px
+margin-top:15px
 }
 
 .urgency{
@@ -123,10 +117,7 @@ color:#ff4d4d;
 font-size:12px
 }
 
-.orderPage{
-display:none;
-padding:15px
-}
+.orderPage{display:none;padding:15px}
 
 input{
 width:100%;
@@ -136,32 +127,40 @@ border:none;
 border-radius:6px
 }
 
-.trust{
-text-align:center;
-margin:10px;
-font-size:14px
-}
+.trust{text-align:center;margin:10px}
 
-.backBtn{
-background:#fff;
-color:#000;
-margin-bottom:10px
-}
+.backBtn{background:#fff;color:#000;margin-bottom:10px}
 
-/* ⭐ REVIEWS STYLE */
-.reviews{
-padding:20px;
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px
+/* REVIEW SLIDER */
+.review-slider{overflow:hidden}
+.review-track{
+display:flex;
+animation:scrollReviews 20s linear infinite
 }
-
 .review-box{
-background:rgba(255,255,255,0.08);
+min-width:200px;
+margin:10px;
+background:#111;
 padding:10px;
+border-radius:10px
+}
+
+@keyframes scrollReviews{
+0%{transform:translateX(0)}
+100%{transform:translateX(-100%)}
+}
+
+/* POPUP */
+.popup{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#000;
+padding:10px 15px;
 border-radius:10px;
+color:#00ffae;
 font-size:13px;
-box-shadow:0 3px 10px rgba(0,0,0,0.3)
+display:none;
 }
 </style>
 </head>
@@ -173,6 +172,8 @@ box-shadow:0 3px 10px rgba(0,0,0,0.3)
 </div>
 
 <header>Luxury Perfume Store</header>
+
+<div class="timer">⏳ Offer Ends In: <span id="countdown">10:00</span></div>
 
 <div class="trust">
 🚚 Free Delivery | 💵 COD Available | 🔒 Secure Order
@@ -186,26 +187,24 @@ box-shadow:0 3px 10px rgba(0,0,0,0.3)
 
 <!-- ⭐ REVIEWS -->
 <h2 class="section-title">⭐ Customer Reviews</h2>
-<div class="reviews">
-
+<div class="review-slider">
+<div class="review-track">
 <div class="review-box">Amazing fragrance 🔥 - Rahul ⭐⭐⭐⭐⭐</div>
 <div class="review-box">Combo best hai - Aman ⭐⭐⭐⭐⭐</div>
 <div class="review-box">Premium smell - Pooja ⭐⭐⭐⭐⭐</div>
-<div class="review-box">Delivery fast thi - Neha ⭐⭐⭐⭐☆</div>
-<div class="review-box">Gift ke liye perfect ❤️ - Karan ⭐⭐⭐⭐⭐</div>
+<div class="review-box">Fast delivery - Neha ⭐⭐⭐⭐☆</div>
+<div class="review-box">Gift perfect ❤️ - Karan ⭐⭐⭐⭐⭐</div>
 <div class="review-box">Quality top - Rohit ⭐⭐⭐⭐⭐</div>
 <div class="review-box">Daily use best - Vikram ⭐⭐⭐⭐⭐</div>
 <div class="review-box">Dobara order karunga - Deepak ⭐⭐⭐⭐⭐</div>
 <div class="review-box">Smell achi hai - Simran ⭐⭐⭐⭐☆</div>
 <div class="review-box">Value for money 👍 - Ankit ⭐⭐⭐⭐⭐</div>
-
+</div>
 </div>
 
 <!-- ORDER PAGE -->
 <section id="orderPage" class="orderPage">
-
 <button class="backBtn" onclick="goBack()">⬅ Back</button>
-
 <h2>Complete Your Order</h2>
 
 <form onsubmit="submitForm(event)">
@@ -220,95 +219,64 @@ box-shadow:0 3px 10px rgba(0,0,0,0.3)
 
 <button type="submit">Confirm Order (COD)</button>
 </form>
-
 </section>
+
+<!-- POPUP -->
+<div id="popup" class="popup"></div>
 
 <script>
 
+/* PRODUCTS */
 let perfumes=["Royal Oud","Midnight Musk","Fresh Citrus","Dark Night","Ocean Breeze","Golden Spice"];
 let combos=["Oud Combo","Musk Combo","Citrus Combo","Night Combo"];
 
 let container=document.getElementById('productPage');
 let comboContainer=document.getElementById('comboPage');
 
-/* PRODUCTS */
 perfumes.forEach((p,i)=>{
 container.innerHTML+=`
 <div class="card">
 <div class="badge">Best</div>
-
 <img src="https://source.unsplash.com/400x400/?perfume">
-
 <h3>${p}</h3>
-
-<div class="price">
-<span class="old">₹1999</span>
-<span class="new">₹799</span>
-</div>
-
+<div class="price"><span class="old">₹1999</span> <span class="new">₹799</span></div>
 <div class="urgency">⚡ Only ${Math.floor(Math.random()*5)+1} left</div>
-
-<select id="p${i}">
-<option>1</option>
-<option>2</option>
-<option>3</option>
-</select>
-
+<select id="p${i}"><option>1</option><option>2</option><option>3</option></select>
 <button onclick="openForm('${p}','p${i}')">Order COD</button>
-
 </div>`;
 });
 
-/* COMBO */
 combos.forEach((c,i)=>{
 comboContainer.innerHTML+=`
 <div class="card">
 <div class="badge">Hot</div>
-
 <img src="https://source.unsplash.com/400x400/?perfume,bottle">
-
 <h3>${c}</h3>
-
-<div class="price">
-<span class="old">₹2999</span>
-<span class="new">₹1299</span>
-</div>
-
+<div class="price"><span class="old">₹2999</span> <span class="new">₹1299</span></div>
 <div class="urgency">🔥 Buy 2 Get 1 Free</div>
-
-<select id="c${i}">
-<option>1</option>
-<option>2</option>
-</select>
-
+<select id="c${i}"><option>1</option><option>2</option></select>
 <button onclick="openForm('${c}','c${i}')">Order Combo</button>
-
 </div>`;
 });
 
-/* OPEN FORM */
+/* FORM */
 function openForm(product,qtyId){
-
 let qty=document.getElementById(qtyId).value;
-
 document.getElementById('productPage').style.display='none';
 document.getElementById('comboPage').style.display='none';
 document.getElementById('orderPage').style.display='block';
-
 document.getElementById('selectedProduct').value=product;
 document.getElementById('selectedQty').value=qty;
-
 window.scrollTo(0,0);
 }
 
-/* BACK */
 function goBack(){
 document.getElementById('orderPage').style.display='none';
 document.getElementById('productPage').style.display='grid';
 document.getElementById('comboPage').style.display='grid';
 }
 
-/* SUBMIT */
+/* WHATSAPP */
 function submitForm(e){
 e.preventDefault();
 
@@ -322,18 +290,32 @@ let qty=document.getElementById('selectedQty').value;
 
 let number="918739853696";
 
-let msg=`🔥 NEW ORDER 🔥%0A
-Name: ${name}%0A
-Phone: ${phone}%0A
-Address: ${address}%0A
-City: ${city}%0A
-Pincode: ${pincode}%0A
-Product: ${product}%0A
-Qty: ${qty}%0A
-✅ COD Confirm`;
+let msg=`🔥 NEW ORDER 🔥%0AName:${name}%0APhone:${phone}%0AAddress:${address}%0ACity:${city}%0APincode:${pincode}%0AProduct:${product}%0AQty:${qty}%0A✅ COD Confirm`;
 
 window.open(`https://wa.me/${number}?text=${msg}`,'_blank');
 }
+
+/* TIMER */
+let time=600;
+setInterval(()=>{
+let m=Math.floor(time/60);
+let s=time%60;
+document.getElementById("countdown").innerText=`${m}:${s<10?'0'+s:s}`;
+if(time>0) time--;
+},1000);
+
+/* POPUP */
+let names=["Rahul","Aman","Pooja","Neha","Karan","Rohit","Vikram","Deepak"];
+let products=["Royal Oud","Musk Combo","Citrus","Night Combo"];
+
+setInterval(()=>{
+let popup=document.getElementById("popup");
+let name=names[Math.floor(Math.random()*names.length)];
+let product=products[Math.floor(Math.random()*products.length)];
+popup.innerText=`${name} just ordered ${product}`;
+popup.style.display="block";
+setTimeout(()=>popup.style.display="none",3000);
+},5000);
 
 </script>
 
