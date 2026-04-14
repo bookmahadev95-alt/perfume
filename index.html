@@ -3,191 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxe Aroma | 20+ Premium Perfumes</title>
+    <title>Luxe Aroma | Order Now</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #D4AF37; --accent: #00ffae; --dark: #0f0f0f; }
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
-        body { background: linear-gradient(135deg, #0f0f0f, #1c1c1c); color:#fff; overflow-x:hidden; }
+        body { background: #0f0f0f; color:#fff; overflow-x:hidden; }
 
-        /* Announcement Bar */
-        .marquee { background:#000; color:var(--accent); padding:10px; overflow:hidden; white-space:nowrap; border-bottom:1px solid var(--gold); }
-        .marquee span { display:inline-block; animation:scroll 15s linear infinite; font-weight:600; font-size: 14px; }
+        /* Announcement */
+        .marquee { background:#000; color:var(--accent); padding:10px; overflow:hidden; white-space:nowrap; border-bottom:1px solid var(--gold); font-size: 13px; }
+        .marquee span { display:inline-block; animation:scroll 15s linear infinite; font-weight:600; }
         @keyframes scroll { 0% { transform:translateX(100%); } 100% { transform:translateX(-100%); } }
 
-        header { text-align:center; padding:20px 10px 5px; font-size:28px; font-weight:600; color:var(--gold); letter-spacing:2px; text-transform: uppercase; }
-        
-        /* Trust Badges */
-        .trust-badges { display: flex; justify-content: space-around; padding: 10px 5px; background: rgba(255,255,255,0.05); margin-bottom: 5px; }
-        .badge-item { text-align: center; font-size: 9px; font-weight: 600; color: #ccc; }
-        .badge-item span { display: block; font-size: 16px; color: var(--gold); }
+        header { text-align:center; padding:20px; font-size:28px; font-weight:600; color:var(--gold); letter-spacing:2px; }
 
-        .timer { text-align:center; background:#ff4d4d; padding:6px; font-weight:600; font-size:12px; }
-        .section-title { text-align:center; margin:20px 0 10px; font-size:1.2rem; color:var(--gold); text-transform:uppercase; }
+        /* Floating WhatsApp */
+        .wa-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; }
 
-        /* 2-Column Product Layout */
-        .products { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; max-width: 900px; margin: auto; }
+        /* Trust Section */
+        .why-us { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 20px; background: #111; margin: 15px 0; border-radius: 10px; }
+        .why-item { font-size: 11px; text-align: center; border: 1px solid #333; padding: 10px; border-radius: 8px; }
+        .why-item i { display: block; font-size: 20px; color: var(--gold); margin-bottom: 5px; }
+
+        /* Products Grid (2 per row) */
+        .products { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
         .card { background:rgba(255,255,255,0.03); border:1px solid rgba(212, 175, 55, 0.2); padding:10px; border-radius:12px; text-align:center; position:relative; }
-        .card img { width:100%; height:120px; object-fit:cover; border-radius:8px; margin-bottom: 5px; }
-        .offer-tag { position:absolute; top:5px; right:5px; background:var(--gold); color:#000; padding:2px 5px; font-size:8px; font-weight:bold; border-radius:3px; }
+        .card img { width:100%; height:120px; object-fit:cover; border-radius:8px; }
         
-        .price { margin:5px 0; }
-        .old { text-decoration:line-through; color:#888; font-size:10px; }
-        .new { color:var(--accent); font-weight:600; font-size:15px; display: block; }
-        
-        select { width:100%; padding:8px; margin-bottom:8px; border-radius:6px; border:none; background:#222; color:#fff; font-size: 11px; }
-        button { background:linear-gradient(45deg, var(--gold), #f3e092); border:none; padding:10px; border-radius:8px; cursor:pointer; width:100%; font-weight:700; color:#000; font-size: 12px; }
+        /* Stock Bar */
+        .stock-container { margin: 8px 0; }
+        .stock-bar { width: 100%; height: 6px; background: #333; border-radius: 10px; overflow: hidden; }
+        .stock-fill { width: 40%; height: 100%; background: #ff4d4d; border-radius: 10px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
-        /* Order Page */
-        .orderPage { display:none; padding:20px; max-width:500px; margin:auto; }
+        .new { color:var(--accent); font-weight:600; font-size:16px; display: block; margin: 5px 0; }
+        button { background:linear-gradient(45deg, var(--gold), #f3e092); border:none; padding:10px; border-radius:8px; cursor:pointer; width:100%; font-weight:700; color:#000; }
+
+        .orderPage { display:none; padding:20px; }
         input { width:100%; padding:12px; margin:8px 0; border-radius:10px; border:1px solid #333; background:#222; color:#fff; }
-
-        /* Reviews Section */
-        .review-container { padding: 20px 10px; background: rgba(0,0,0,0.5); margin-top: 20px; }
-        .review-scroll { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 10px; scrollbar-width: none; }
-        .review-scroll::-webkit-scrollbar { display: none; }
-        .review-box { min-width: 260px; background: #1a1a1a; padding: 15px; border-radius: 12px; border-left: 4px solid var(--gold); }
-        .stars { color: var(--gold); font-size: 12px; margin-bottom: 5px; }
-        .rev-name { font-weight: 600; font-size: 13px; color: var(--accent); display: block; margin-top: 5px; }
+        
+        .review-scroll { display: flex; overflow-x: auto; gap: 15px; padding: 15px; scrollbar-width: none; }
+        .review-box { min-width: 250px; background: #1a1a1a; padding: 15px; border-radius: 10px; border-left: 3px solid var(--gold); font-size: 12px; }
     </style>
 </head>
 <body>
 
+    <a href="https://wa.me/918739853696" class="wa-float" target="_blank">💬</a>
+
     <div class="marquee">
-        <span>🔥 FREE SHIPPING | CASH ON DELIVERY | 100% PREMIUM QUALITY | ALL INDIA DELIVERY 🔥</span>
+        <span>🔥 LIMITED STOCK: Order now and get a FREE Pocket Perfume on orders above ₹1499! 🔥</span>
     </div>
 
     <header>Luxe Aroma</header>
 
-    <div class="trust-badges">
-        <div class="badge-item"><span>🚚</span>FREE SHIPPING</div>
-        <div class="badge-item"><span>💵</span>COD AVAILABLE</div>
-        <div class="badge-item"><span>🇮🇳</span>PAN INDIA</div>
+    <div class="why-us">
+        <div class="why-item">✨<br>24h Long Lasting</div>
+        <div class="why-item">🌿<br>Skin Friendly</div>
+        <div class="why-item">🚚<br>Free Fast Delivery</div>
+        <div class="why-item">💰<br>Cash on Delivery</div>
     </div>
 
-    <div class="timer">⏱️ Discount Ends: <span id="countdown">10:00</span></div>
-
     <div id="homePage">
-        <h2 class="section-title">🧴 Best Sellers</h2>
+        <h2 style="text-align: center; color: var(--gold); font-size: 18px;">🧴 BEST SELLERS (20+ Items)</h2>
         <section id="productPage" class="products"></section>
 
-        <h2 class="section-title">🎁 Money Saver Combos</h2>
+        <h2 style="text-align: center; color: var(--gold); font-size: 18px; margin-top: 20px;">🎁 COMBO PACKS</h2>
         <section id="comboPage" class="products"></section>
 
-        <h2 class="section-title">⭐ Happy Customers</h2>
-        <div class="review-container">
-            <div class="review-scroll">
-                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Amazing fragrance! Royal Oud smells very expensive. Highly recommended."<span class="rev-name">- Rahul Verma, Delhi</span></div>
-                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Best combo pack for gifting. My brother loved the Trio collection!"<span class="rev-name">- Sneha Kapoor, Mumbai</span></div>
-                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Fast delivery and genuine product. COD option made it easy for me."<span class="rev-name">- Vikram Singh, Jaipur</span></div>
-                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Midnight Musk ki khushbu bohot hi premium hai. 8-10 ghante chalti hai."<span class="rev-name">- Aman Deep, Punjab</span></div>
-                <div class="review-box"><div class="stars">⭐⭐⭐⭐☆</div>"Good packaging and very safe delivery. Fragrance is 10/10."<span class="rev-name">- Pooja Rao, Bangalore</span></div>
-                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Maine 2 packs mangwaye, Free Shipping mili. Great deal!"<span class="rev-name">- Karan Joshi, Pune</span></div>
-                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Party Pack is best for office and evening functions. Long lasting."<span class="rev-name">- Neha Gupta, Lucknow</span></div>
-                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Ocean Blue perfume is very fresh. Perfect for summer."<span class="rev-name">- Sumit Malik, Haryana</span></div>
-                <div class="review-box"><div class="stars">⭐⭐⭐⭐☆</div>"Value for money. Branded perfumes se kam nahi hai."<span class="rev-name">- Rohit Das, Kolkata</span></div>
-                <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"All India delivery was smooth. Got it in 4 days in Assam."<span class="rev-name">- Jatin, Guwahati</span></div>
-            </div>
+        <h2 style="text-align: center; color: var(--gold); font-size: 18px; margin-top: 20px;">⭐ REVIEWS</h2>
+        <div class="review-scroll">
+            <div class="review-box">"Oud smells amazing! 100% original feel."<br><b>- Rahul, Delhi</b></div>
+            <div class="review-box">"Best delivery speed, got it in 2 days."<br><b>- Vikram, Jaipur</b></div>
+            <div class="review-box">"Combo pack is best for gifting."<br><b>- Sneha, Mumbai</b></div>
+            <div class="review-box">"Pocket friendly and premium."<br><b>- Aman, Punjab</b></div>
         </div>
     </div>
 
     <section id="orderPage" class="orderPage">
-        <button style="width:auto; padding:5px 15px; background:none; border:1px solid var(--gold); color:var(--gold); margin-bottom:15px;" onclick="goBack()">← Back</button>
-        <h2 style="margin-bottom:10px; color: var(--gold);">Complete Order</h2>
-        <div style="background:rgba(212, 175, 55, 0.1); padding:15px; border-radius:12px; border: 1px dashed var(--gold); margin-bottom:20px;">
-            <p id="selectedItemName" style="font-weight:bold;"></p>
-            <p id="totalDisplay" style="font-size:20px; color:var(--accent); font-weight: bold;"></p>
-            <p style="font-size: 11px; color: #aaa;">Delivery: FREE | Payment: COD</p>
+        <button style="width: auto; padding: 5px 15px; margin-bottom: 20px;" onclick="goBack()">← Back</button>
+        <div id="orderSummary" style="background:#222; padding:15px; border-radius:10px; border:1px solid var(--gold);">
+            <p id="selectedItemName"></p>
+            <p id="totalDisplay" style="font-size: 20px; color: var(--accent);"></p>
         </div>
-
         <form onsubmit="sendToWhatsApp(event)">
-            <input id="userName" type="text" placeholder="Aapka Pura Naam" required>
-            <input id="userPhone" type="tel" placeholder="Mobile Number" pattern="[0-9]{10}" required>
-            <input id="userAddress" type="text" placeholder="Ghar No., Area, Landmark" required>
-            <input id="userCity" type="text" placeholder="Shehar (City)" required>
-            <input id="userPin" type="number" placeholder="Pincode" required>
-            <button type="submit">Order Confirm Karein (COD)</button>
+            <input id="userName" placeholder="Full Name" required>
+            <input id="userPhone" placeholder="Mobile Number" required>
+            <input id="userAddress" placeholder="Full Address" required>
+            <input id="userCity" placeholder="City" required>
+            <input id="userPin" placeholder="Pincode" required>
+            <button type="submit">Place Order (COD)</button>
         </form>
     </section>
 
     <script>
         const perfumes = [
-            {name:"Royal Oud", price:799, old:1999}, {name:"Midnight Musk", price:899, old:2199},
-            {name:"Ocean Blue", price:749, old:1899}, {name:"Fresh Citrus", price:699, old:1799},
-            {name:"Dark Night", price:999, old:2499}, {name:"Golden Sand", price:849, old:2099},
-            {name:"Silver Mist", price:699, old:1699}, {name:"Black Leather", price:1099, old:2699},
-            {name:"White Jasmine", price:799, old:1899}, {name:"Velvet Rose", price:899, old:2299}
+            {name:"Royal Oud", price:799}, {name:"Midnight Musk", price:899},
+            {name:"Ocean Blue", price:749}, {name:"Fresh Citrus", price:699},
+            {name:"Dark Night", price:999}, {name:"Golden Sand", price:849},
+            {name:"Silver Mist", price:699}, {name:"Black Leather", price:1099},
+            {name:"White Jasmine", price:799}, {name:"Velvet Rose", price:899}
         ];
 
         const combos = [
-            {name:"Couple Special", price:1299, old:2999}, {name:"Luxury Trio", price:1599, old:3999},
-            {name:"Party Pack", price:1999, old:5499}, {name:"Gifting Kit", price:1399, old:2899},
-            {name:"Travel Mini", price:999, old:2499}, {name:"His & Her", price:1449, old:3299},
-            {name:"Weekend Vibes", price:1199, old:2599}, {name:"Office Pack", price:1699, old:4299},
-            {name:"Royal Collection", price:1499, old:3499}, {name:"Ultimate Gift", price:2499, old:5999}
+            {name:"Couple Special", price:1299}, {name:"Luxury Trio", price:1599},
+            {name:"Party Pack", price:1999}, {name:"Gifting Kit", price:1399},
+            {name:"Travel Mini", price:999}, {name:"His & Her", price:1449},
+            {name:"Weekend Vibes", price:1199}, {name:"Office Pack", price:1699},
+            {name:"Royal Collection", price:1499}, {name:"Ultimate Gift", price:2499}
         ];
-
-        let sProduct = "", sPrice = 0, sQty = 1;
 
         function init() {
             const pDiv = document.getElementById('productPage');
             perfumes.forEach((p, i) => {
                 pDiv.innerHTML += `
                 <div class="card">
-                    <div class="offer-tag">FREE SHIPPING</div>
-                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=300" alt="perfume">
-                    <h3 style="font-size:12px; margin:5px 0;">${p.name}</h3>
-                    <div class="price"><span class="old">₹${p.old}</span> <span class="new">₹${p.price}</span></div>
-                    <select id="qP${i}"><option value="1">1 Qty</option><option value="2">2 Qty</option></select>
-                    <button onclick="openOrder('${p.name}', ${p.price}, 'qP${i}')">Order</button>
+                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=300">
+                    <h3 style="font-size:12px;">${p.name}</h3>
+                    <span class="new">₹${p.price}</span>
+                    <div class="stock-container">
+                        <div class="stock-bar"><div class="stock-fill" style="width: ${Math.random()*40+10}%"></div></div>
+                        <p style="font-size:8px; color:#ff4d4d; margin-top:2px;">Only a few left!</p>
+                    </div>
+                    <button onclick="openOrder('${p.name}', ${p.price})">Order</button>
                 </div>`;
             });
 
             const cDiv = document.getElementById('comboPage');
-            combos.forEach((c, i) => {
+            combos.forEach((c) => {
                 cDiv.innerHTML += `
                 <div class="card">
-                    <div class="offer-tag">COD</div>
-                    <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300" alt="combo">
-                    <h3 style="font-size:12px; margin:5px 0;">${c.name}</h3>
-                    <div class="price"><span class="old">₹${c.old}</span> <span class="new">₹${c.price}</span></div>
-                    <select id="qC${i}"><option value="1">1 Combo</option><option value="2">2 Combo</option></select>
-                    <button onclick="openOrder('${c.name}', ${c.price}, 'qC${i}')">Order</button>
+                    <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300">
+                    <h3 style="font-size:12px;">${c.name}</h3>
+                    <span class="new">₹${c.price}</span>
+                    <button onclick="openOrder('${c.name}', ${c.price})">Buy Combo</button>
                 </div>`;
             });
         }
 
-        function openOrder(name, price, qId) {
-            sProduct = name; sPrice = price; sQty = document.getElementById(qId).value;
-            document.getElementById('homePage').style.display = 'none';
-            document.getElementById('orderPage').style.display = 'block';
-            document.getElementById('selectedItemName').innerText = sProduct + " (Qty: " + sQty + ")";
-            document.getElementById('totalDisplay').innerText = "Total: ₹" + (sPrice * sQty);
-            window.scrollTo(0,0);
+        let currentP = "", currentPrice = 0;
+        function openOrder(n, p) {
+            currentP = n; currentPrice = p;
+            document.getElementById('homePage').style.display='none';
+            document.getElementById('orderPage').style.display='block';
+            document.getElementById('selectedItemName').innerText = n;
+            document.getElementById('totalDisplay').innerText = "Total: ₹" + p;
         }
 
-        function goBack() {
-            document.getElementById('orderPage').style.display = 'none';
-            document.getElementById('homePage').style.display = 'block';
+        function goBack() { 
+            document.getElementById('orderPage').style.display='none';
+            document.getElementById('homePage').style.display='block';
         }
 
         function sendToWhatsApp(e) {
             e.preventDefault();
-            const n = document.getElementById('userName').value;
-            const ph = document.getElementById('userPhone').value;
-            const ad = document.getElementById('userAddress').value;
-            const ci = document.getElementById('userCity').value;
-            const pi = document.getElementById('userPin').value;
-            const msg = `*NEW ORDER RECEIVED*%0A%0A*Item:* ${sProduct}%0A*Qty:* ${sQty}%0A*Total:* ₹${sPrice * sQty}%0A%0A*Name:* ${n}%0A*Phone:* ${ph}%0A*Address:* ${ad}, ${ci} - ${pi}%0A*Delivery:* FREE%0A*Payment:* COD`;
-            window.open(`https://wa.me/918739853696?text=${msg}`, '_blank');
+            const msg = `*NEW ORDER*%0A*Item:* ${currentP}%0A*Total:* ₹${currentPrice}%0A*Name:* ${document.getElementById('userName').value}%0A*Address:* ${document.getElementById('userAddress').value}%0A*Payment:* COD`;
+            window.open(`https://wa.me/918739853696?text=${msg}`);
         }
-
-        let t = 600;
-        setInterval(() => {
-            let m = Math.floor(t/60); let s = t % 60;
-            document.getElementById('countdown').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
-            if(t > 0) t--;
-        }, 1000);
 
         init();
     </script>
