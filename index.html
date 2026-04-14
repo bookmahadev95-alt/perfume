@@ -7,72 +7,63 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#0f0f0f;color:#fff}
-header{text-align:center;padding:15px;font-size:24px}
-.products{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;padding:15px}
+body{background:linear-gradient(135deg,#0f0f0f,#1c1c1c);color:#fff}
+.marquee{background:#000;color:#00ffae;padding:10px;overflow:hidden;white-space:nowrap}
+.marquee span{display:inline-block;padding-left:100%;animation:scroll 12s linear infinite}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+header{text-align:center;padding:15px;font-size:26px;font-weight:600}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:20px}
 @media(max-width:1000px){.products{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.products{grid-template-columns:repeat(2,1fr)}}
-.card{background:#1a1a1a;padding:10px;border-radius:10px;text-align:center}
-.card img{width:100%;height:220px;object-fit:cover;border-radius:10px}
-button{background:#00ffae;border:none;padding:8px;border-radius:6px;margin-top:5px}
-select{margin-top:5px}
-.orderPage,.thankyou{display:none;padding:20px}
-input{width:100%;padding:10px;margin:5px 0}
+.card{background:rgba(255,255,255,0.05);padding:12px;border-radius:16px;text-align:center}
+.card img{width:100%;height:230px;object-fit:cover;border-radius:12px}
+button{background:#00ffae;border:none;padding:8px 12px;border-radius:8px;margin:4px}
+select{padding:6px;border-radius:6px;margin-top:5px}
+.orderPage,.thankyou{display:none;padding:20px;text-align:center}
+input{width:100%;padding:10px;margin:8px 0;border:none;border-radius:6px}
 </style>
 </head>
 <body>
 
+<div class="marquee"><span>🔥 Luxury Perfume Sale | Buy 2 Get 1 Free 🔥</span></div>
 <header>Luxury Perfume Store</header>
 
 <section id="productPage" class="products"></section>
 
 <section id="orderPage" class="orderPage">
-<h2>Complete Order</h2>
+<h2>💳 Complete Your Order</h2>
 <form onsubmit="submitForm(event)">
-<input id="name" placeholder="Name" required>
-<input id="phone" placeholder="Phone" required>
+<input id="name" placeholder="Full Name" required>
+<input id="phone" placeholder="Mobile Number" required>
 <input id="address" placeholder="Address" required>
 <input id="city" placeholder="City" required>
 <input id="state" placeholder="State" required>
 <input id="pincode" placeholder="Pincode" required>
 <input id="selectedProduct" readonly>
 <input id="selectedQty" readonly>
-<button type="submit">Confirm</button>
+<button type="submit">Confirm Order</button>
 </form>
 </section>
 
 <section id="thankyou" class="thankyou">
-<h2>Order Confirmed</h2>
-<p>We will call you soon</p>
-<button onclick="location.reload()">Shop More</button>
+<h2>🎉 Order Confirmed!</h2>
+<p>Our team will contact you soon.</p>
+<h3>🔥 Special Offer: Buy 1 More @ ₹499</h3>
+<button onclick="upsell()">Add More Product</button>
 </section>
 
 <script>
-let perfumes=[
-"Royal Oud","Midnight Musk","Fresh Citrus","Dark Night","Ocean Breeze",
-"Golden Spice","Royal Rose","Ice Cool","Black Oud","Silver Mist",
-"Aqua Fresh","Night King","White Musk","Red Rose","Blue Wave",
-"Spicy Oud","Cool Mint","Urban Man","Wild Stone","Luxury Gold"
-];
-
+let perfumes=["Royal Oud","Midnight Musk","Fresh Citrus","Dark Night","Ocean Breeze","Golden Spice","Royal Rose","Ice Cool","Black Oud","Silver Mist"];
 let container=document.getElementById('productPage');
 
-// CLEAR FIRST
-container.innerHTML="";
-
 perfumes.forEach((p,i)=>{
-let div=document.createElement('div');
-div.className="card";
-div.innerHTML=`
-<img src="https://source.unsplash.com/400x400/?perfume,${i}">
+container.innerHTML+=`
+<div class="card">
+<img src="https://source.unsplash.com/400x400/?luxury,perfume,${i}">
 <h3>${p}</h3>
-<select id="q${i}">
-<option>1</option>
-<option>2</option>
-</select>
-<button onclick="openForm('${p}','q${i}')">Order COD</button>
-`;
-container.appendChild(div);
+<select id="p${i}"><option>1</option><option>2</option></select>
+<button onclick="openForm('${p}','p${i}')">Order COD</button>
+</div>`;
 });
 
 function openForm(product,id){
@@ -87,8 +78,14 @@ function submitForm(e){
 e.preventDefault();
 document.getElementById('orderPage').style.display='none';
 document.getElementById('thankyou').style.display='block';
+
 let number="91XXXXXXXXXX";
-window.open(`https://wa.me/${number}?text=New Order`,'_blank');
+let msg="New COD Order";
+window.open(`https://wa.me/${number}?text=${msg}`,'_blank');
+}
+
+function upsell(){
+alert("Extra product added! Our team will confirm.");
 }
 </script>
 
