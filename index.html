@@ -8,85 +8,92 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 body{background:#0f0f0f;color:#fff}
-
-/* Moving Header */
 .marquee{background:#000;color:#00ffae;padding:10px;overflow:hidden;white-space:nowrap}
-.marquee span{display:inline-block;padding-left:100%;animation:scroll 10s linear infinite}
+.marquee span{display:inline-block;padding-left:100%;animation:scroll 12s linear infinite}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
-
 header{text-align:center;padding:15px;font-size:26px;font-weight:600}
-.hero{text-align:center;padding:40px 20px}
-.timer{color:#ff4d4d;font-size:18px;margin-top:10px}
-.live{color:#00ffae;margin-top:10px}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:20px}
-.card{background:#1a1a1a;padding:15px;border-radius:12px;text-align:center;position:relative}
-.stock{position:absolute;top:10px;left:10px;background:red;padding:5px 10px;border-radius:6px;font-size:12px}
-.card img{width:100%;border-radius:10px}
-.price{margin:10px 0}
+.hero{text-align:center;padding:30px 20px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:15px;padding:20px}
+.card{background:#1a1a1a;padding:12px;border-radius:12px;text-align:center;position:relative}
+.stock{position:absolute;top:8px;left:8px;background:red;padding:4px 8px;border-radius:6px;font-size:11px}
+.card img{width:100%;border-radius:10px;height:180px;object-fit:cover}
+.price{margin:8px 0}
 .old{text-decoration:line-through;color:#888}
 .new{color:#00ffae;font-weight:600}
-button{background:#00ffae;border:none;padding:10px 15px;border-radius:8px;cursor:pointer;margin:5px}
-select{padding:8px;border-radius:6px;margin-top:5px}
+button{background:#00ffae;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;margin:4px}
+select{padding:6px;border-radius:6px;margin-top:5px}
+.section-title{text-align:center;font-size:22px;margin-top:20px}
 footer{text-align:center;padding:20px;color:#777}
 </style>
 </head>
 <body>
 
-<div class="marquee"><span>🔥 Luxury Perfume Sale | Buy 2 Get 1 Free | Limited Time Offer 🔥 Luxury Perfume Sale | Buy 2 Get 1 Free</span></div>
-
-<header>Luxury Perfume</header>
+<div class="marquee"><span>🔥 Luxury Perfume Sale | Buy 2 Get 1 Free | Premium Collection 🔥</span></div>
+<header>Luxury Perfume Store</header>
 
 <section class="hero">
-<h1>🔥 Premium Combo Offers</h1>
-<div class="timer">⏳ Offer Ends In: <span id="countdown"></span></div>
-<div class="live">🛒 18 people are viewing this right now</div>
+<h1>🔥 Premium Perfumes & Combo Offers</h1>
 </section>
 
+<h2 class="section-title">🧴 Single Perfumes</h2>
 <section class="products">
 
-<!-- 10 Products -->
+<!-- 10 Single Perfumes -->
 
-<div class="card"><div class="stock">Only 5 Left</div><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f"><h3>Royal Oud</h3><div class="price"><span class="old">₹1999</span> <span class="new">₹999</span></div><select id="q1"><option>1</option><option>2</option></select><button onclick="quickOrder('Royal Oud','q1')">Buy Now</button></div>
-
-<div class="card"><div class="stock">Only 4 Left</div><img src="https://images.unsplash.com/photo-1615634262417-9f0c8c88c6c3"><h3>Midnight Musk</h3><div class="price"><span class="old">₹1899</span> <span class="new">₹899</span></div><select id="q2"><option>1</option><option>2</option></select><button onclick="quickOrder('Midnight Musk','q2')">Buy Now</button></div>
-
-<div class="card"><div class="stock">Only 3 Left</div><img src="https://images.unsplash.com/photo-1585386959984-a41552262a1a"><h3>Fresh Citrus</h3><div class="price"><span class="old">₹1799</span> <span class="new">₹799</span></div><select id="q3"><option>1</option><option>2</option></select><button onclick="quickOrder('Fresh Citrus','q3')">Buy Now</button></div>
-
-<div class="card"><div class="stock">Only 5 Left</div><img src="https://images.unsplash.com/photo-1523293836414-96d9a09c81c9"><h3>Dark Night</h3><div class="price"><span class="old">₹1999</span> <span class="new">₹999</span></div><select id="q4"><option>1</option><option>2</option></select><button onclick="quickOrder('Dark Night','q4')">Buy Now</button></div>
-
-<div class="card"><div class="stock">Only 4 Left</div><img src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6"><h3>Ocean Breeze</h3><div class="price"><span class="old">₹1899</span> <span class="new">₹899</span></div><select id="q5"><option>1</option><option>2</option></select><button onclick="quickOrder('Ocean Breeze','q5')">Buy Now</button></div>
-
-<div class="card"><div class="stock">Only 3 Left</div><img src="https://images.unsplash.com/photo-1587019158091-1a103c5dd17f"><h3>Golden Spice</h3><div class="price"><span class="old">₹1799</span> <span class="new">₹799</span></div><select id="q6"><option>1</option><option>2</option></select><button onclick="quickOrder('Golden Spice','q6')">Buy Now</button></div>
-
-<div class="card"><div class="stock">Only 5 Left</div><img src="https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd"><h3>Royal Rose</h3><div class="price"><span class="old">₹1999</span> <span class="new">₹999</span></div><select id="q7"><option>1</option><option>2</option></select><button onclick="quickOrder('Royal Rose','q7')">Buy Now</button></div>
-
-<div class="card"><div class="stock">Only 4 Left</div><img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990"><h3>Ice Cool</h3><div class="price"><span class="old">₹1899</span> <span class="new">₹899</span></div><select id="q8"><option>1</option><option>2</option></select><button onclick="quickOrder('Ice Cool','q8')">Buy Now</button></div>
-
-<div class="card"><div class="stock">Only 3 Left</div><img src="https://images.unsplash.com/photo-1598514982846-0d5f7c68c5a2"><h3>Black Oud</h3><div class="price"><span class="old">₹1799</span> <span class="new">₹799</span></div><select id="q9"><option>1</option><option>2</option></select><button onclick="quickOrder('Black Oud','q9')">Buy Now</button></div>
-
-<div class="card"><div class="stock">Only 2 Left</div><img src="https://images.unsplash.com/photo-1600181957353-9c9e8d9c7f9b"><h3>Silver Mist</h3><div class="price"><span class="old">₹1699</span> <span class="new">₹699</span></div><select id="q10"><option>1</option><option>2</option></select><button onclick="quickOrder('Silver Mist','q10')">Buy Now</button></div>
+<script>
+let perfumes=["Royal Oud","Midnight Musk","Fresh Citrus","Dark Night","Ocean Breeze","Golden Spice","Royal Rose","Ice Cool","Black Oud","Silver Mist"];
+let container=document.currentScript.parentElement;
+perfumes.forEach((p,i)=>{
+container.innerHTML+=`
+<div class="card">
+<div class="stock">Only ${Math.floor(Math.random()*5)+2} Left</div>
+<img src="https://source.unsplash.com/300x300/?perfume,${i}">
+<h3>${p}</h3>
+<div class="price"><span class="old">₹1999</span> <span class="new">₹${699+Math.floor(Math.random()*300)}</span></div>
+<select id="s${i}"><option>1</option><option>2</option><option>3</option></select>
+<button onclick="quickOrder('${p}','s${i}')">Buy Now</button>
+<button onclick="payNow('${p}')">Pay</button>
+</div>`;
+});
+</script>
 
 </section>
 
-<footer>🚚 Free Delivery | 💵 Cash on Delivery Available</footer>
+<h2 class="section-title">🎁 Combo Offers</h2>
+<section class="products">
 
 <script>
-function quickOrder(product, qtyId){
-let qty=document.getElementById(qtyId).value;
+let combos=["Oud Combo","Musk Combo","Citrus Combo","Night Combo","Ocean Combo","Spice Combo","Rose Combo","Cool Combo","Black Combo","Premium Combo"];
+let container2=document.currentScript.parentElement;
+combos.forEach((c,i)=>{
+container2.innerHTML+=`
+<div class="card">
+<div class="stock">Only ${Math.floor(Math.random()*5)+2} Left</div>
+<img src="https://source.unsplash.com/300x300/?perfume,bottle,${i}">
+<h3>${c}</h3>
+<div class="price"><span class="old">₹2999</span> <span class="new">₹${999+Math.floor(Math.random()*400)}</span></div>
+<select id="c${i}"><option>1</option><option>2</option></select>
+<button onclick="quickOrder('${c}','c${i}')">Buy Combo</button>
+<button onclick="payNow('${c}')">Pay</button>
+</div>`;
+});
+</script>
+
+</section>
+
+<footer>🚚 Free Delivery | 💵 COD + Online Payment Available</footer>
+
+<script>
+function quickOrder(product,id){
+let qty=document.getElementById(id).value;
 let number="91XXXXXXXXXX";
 let msg=`Order:%0AProduct:${product}%0AQuantity:${qty}`;
 window.open(`https://wa.me/${number}?text=${msg}`,'_blank');
 }
 
-// Timer
-let time=600;
-setInterval(()=>{
-let min=Math.floor(time/60);
-let sec=time%60;
-document.getElementById('countdown').innerHTML=`${min}:${sec}`;
-time--;
-if(time<0) time=600;
-},1000);
+function payNow(product){
+window.open("https://rzp.io/l/demo123","_blank");
+}
 </script>
 
 </body>
