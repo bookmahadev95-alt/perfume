@@ -112,9 +112,14 @@ comboContainer.innerHTML+=`
 
 function openForm(product,qtyId){
 let qty=document.getElementById(qtyId).value;
-document.getElementById('productPage').style.display='none';
-document.getElementById('comboPage').style.display='none';
+
+// Hide all sections
+let sections=document.querySelectorAll('section');
+sections.forEach(sec=>sec.style.display='none');
+
+// Show only order page
 document.getElementById('orderPage').style.display='block';
+
 document.getElementById('selectedProduct').value=product;
 document.getElementById('selectedQty').value=qty;
 window.scrollTo(0,0);
