@@ -41,7 +41,6 @@ font-size:24px;
 font-weight:600
 }
 
-/* GRID 2 PRODUCTS PER ROW */
 .products{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -63,7 +62,6 @@ transition:0.3s
 transform:translateY(-3px)
 }
 
-/* IMAGE HEIGHT REDUCED */
 .card img{
 width:100%;
 height:120px;
@@ -149,6 +147,22 @@ background:#fff;
 color:#000;
 margin-bottom:10px
 }
+
+/* ⭐ REVIEWS STYLE */
+.reviews{
+padding:20px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px
+}
+
+.review-box{
+background:rgba(255,255,255,0.08);
+padding:10px;
+border-radius:10px;
+font-size:13px;
+box-shadow:0 3px 10px rgba(0,0,0,0.3)
+}
 </style>
 </head>
 
@@ -169,6 +183,23 @@ margin-bottom:10px
 
 <h2 class="section-title">🎁 Combo Offers</h2>
 <section id="comboPage" class="products"></section>
+
+<!-- ⭐ REVIEWS -->
+<h2 class="section-title">⭐ Customer Reviews</h2>
+<div class="reviews">
+
+<div class="review-box">Amazing fragrance 🔥 - Rahul ⭐⭐⭐⭐⭐</div>
+<div class="review-box">Combo best hai - Aman ⭐⭐⭐⭐⭐</div>
+<div class="review-box">Premium smell - Pooja ⭐⭐⭐⭐⭐</div>
+<div class="review-box">Delivery fast thi - Neha ⭐⭐⭐⭐☆</div>
+<div class="review-box">Gift ke liye perfect ❤️ - Karan ⭐⭐⭐⭐⭐</div>
+<div class="review-box">Quality top - Rohit ⭐⭐⭐⭐⭐</div>
+<div class="review-box">Daily use best - Vikram ⭐⭐⭐⭐⭐</div>
+<div class="review-box">Dobara order karunga - Deepak ⭐⭐⭐⭐⭐</div>
+<div class="review-box">Smell achi hai - Simran ⭐⭐⭐⭐☆</div>
+<div class="review-box">Value for money 👍 - Ankit ⭐⭐⭐⭐⭐</div>
+
+</div>
 
 <!-- ORDER PAGE -->
 <section id="orderPage" class="orderPage">
@@ -215,7 +246,7 @@ container.innerHTML+=`
 <span class="new">₹799</span>
 </div>
 
-<div class="urgency">⚡ Only 3 left</div>
+<div class="urgency">⚡ Only ${Math.floor(Math.random()*5)+1} left</div>
 
 <select id="p${i}">
 <option>1</option>
@@ -243,7 +274,7 @@ comboContainer.innerHTML+=`
 <span class="new">₹1299</span>
 </div>
 
-<div class="urgency">🔥 Selling Fast</div>
+<div class="urgency">🔥 Buy 2 Get 1 Free</div>
 
 <select id="c${i}">
 <option>1</option>
@@ -291,7 +322,15 @@ let qty=document.getElementById('selectedQty').value;
 
 let number="918739853696";
 
-let msg=`COD Order:%0AName:${name}%0APhone:${phone}%0AAddress:${address}%0ACity:${city}%0APincode:${pincode}%0AProduct:${product}%0AQty:${qty}`;
+let msg=`🔥 NEW ORDER 🔥%0A
+Name: ${name}%0A
+Phone: ${phone}%0A
+Address: ${address}%0A
+City: ${city}%0A
+Pincode: ${pincode}%0A
+Product: ${product}%0A
+Qty: ${qty}%0A
+✅ COD Confirm`;
 
 window.open(`https://wa.me/${number}?text=${msg}`,'_blank');
 }
