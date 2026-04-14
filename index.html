@@ -38,8 +38,6 @@ footer{text-align:center;padding:20px;color:#777}
 <h2 class="section-title">🧴 Single Perfumes</h2>
 <section class="products">
 
-<!-- 10 Single Perfumes -->
-
 <script>
 let perfumes=["Royal Oud","Midnight Musk","Fresh Citrus","Dark Night","Ocean Breeze","Golden Spice","Royal Rose","Ice Cool","Black Oud","Silver Mist"];
 let container=document.currentScript.parentElement;
@@ -51,8 +49,7 @@ container.innerHTML+=`
 <h3>${p}</h3>
 <div class="price"><span class="old">₹1999</span> <span class="new">₹${699+Math.floor(Math.random()*300)}</span></div>
 <select id="s${i}"><option>1</option><option>2</option><option>3</option></select>
-<button onclick="quickOrder('${p}','s${i}')">Buy Now</button>
-<button onclick="payNow('${p}')">Pay</button>
+<button onclick="quickOrder('${p}','s${i}')">Order COD</button>
 </div>`;
 });
 </script>
@@ -73,26 +70,21 @@ container2.innerHTML+=`
 <h3>${c}</h3>
 <div class="price"><span class="old">₹2999</span> <span class="new">₹${999+Math.floor(Math.random()*400)}</span></div>
 <select id="c${i}"><option>1</option><option>2</option></select>
-<button onclick="quickOrder('${c}','c${i}')">Buy Combo</button>
-<button onclick="payNow('${c}')">Pay</button>
+<button onclick="quickOrder('${c}','c${i}')">Order Combo COD</button>
 </div>`;
 });
 </script>
 
 </section>
 
-<footer>🚚 Free Delivery | 💵 COD + Online Payment Available</footer>
+<footer>🚚 Free Delivery | 💵 Cash on Delivery Available</footer>
 
 <script>
 function quickOrder(product,id){
 let qty=document.getElementById(id).value;
 let number="91XXXXXXXXXX";
-let msg=`Order:%0AProduct:${product}%0AQuantity:${qty}`;
+let msg=`COD Order:%0AProduct:${product}%0AQuantity:${qty}`;
 window.open(`https://wa.me/${number}?text=${msg}`,'_blank');
-}
-
-function payNow(product){
-window.open("https://rzp.io/l/demo123","_blank");
 }
 </script>
 
