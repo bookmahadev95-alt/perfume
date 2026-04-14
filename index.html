@@ -17,7 +17,7 @@
 
         header { text-align:center; padding:20px; font-size:28px; font-weight:600; color:var(--gold); letter-spacing:2px; text-transform: uppercase; }
 
-        /* Professional WhatsApp Icon */
+        /* Official WhatsApp Icon */
         .wa-float { 
             position: fixed; bottom: 80px; right: 20px; background: var(--wa-green); 
             width: 60px; height: 60px; border-radius: 50%; display: flex; 
@@ -36,7 +36,7 @@
         }
         @keyframes slideIn { from { transform: translateX(-120%); } to { transform: translateX(0); } }
 
-        /* Layout */
+        /* Layout (2 Products Per Row) */
         .products { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
         .card { background:rgba(255,255,255,0.03); border:1px solid rgba(212, 175, 55, 0.2); padding:10px; border-radius:15px; text-align:center; }
         .card img { width:100%; height:130px; object-fit:cover; border-radius:10px; }
@@ -49,18 +49,27 @@
 
         .trust-section { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 15px; }
         .trust-box { background: #111; padding: 10px; border-radius: 8px; text-align: center; font-size: 9px; border: 1px solid #222; }
+        .trust-box b { color: var(--gold); display: block; margin-bottom: 2px; }
+
+        /* Reviews Styling */
+        .review-container { padding: 20px 0; background: rgba(0,0,0,0.3); }
+        .review-scroll { display: flex; overflow-x: auto; gap: 15px; padding: 15px; scrollbar-width: none; }
+        .review-scroll::-webkit-scrollbar { display: none; }
+        .review-box { min-width: 250px; background: #1a1a1a; padding: 15px; border-radius: 12px; border-left: 4px solid var(--gold); font-size: 12px; }
+        .stars { color: var(--gold); margin-bottom: 5px; }
+        .rev-name { font-weight: 600; font-size: 13px; color: var(--accent); display: block; margin-top: 5px; }
     </style>
 </head>
 <body>
 
     <a href="https://wa.me/918739853696" class="wa-float" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon" alt="WA">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon" alt="WhatsApp">
     </a>
 
     <div id="sale-popup"></div>
 
     <div class="marquee">
-        <span>🔥 ALL INDIA FREE SHIPPING | CASH ON DELIVERY | BUY 2 GET 1 FREE 🔥</span>
+        <span>🔥 FREE SHIPPING | CASH ON DELIVERY (COD) | ALL INDIA DELIVERY | BUY 2 GET 1 FREE 🔥</span>
     </div>
 
     <header>Luxe Aroma</header>
@@ -68,7 +77,7 @@
     <div class="trust-section">
         <div class="trust-box"><b>🚚 FREE</b> SHIPPING</div>
         <div class="trust-box"><b>💵 COD</b> AVAILABLE</div>
-        <div class="trust-box"><b>🇮🇳 ALL</b> INDIA</div>
+        <div class="trust-box"><b>🇮🇳 PAN</b> INDIA</div>
         <div class="trust-box"><b>✨ 24H</b> LONG LASTING</div>
     </div>
 
@@ -76,23 +85,30 @@
         <h2 style="text-align: center; color: var(--gold); font-size: 16px; margin: 10px 0;">🧴 PREMIUM COLLECTION</h2>
         <section id="productPage" class="products"></section>
 
-        <h2 style="text-align: center; color: var(--gold); font-size: 16px; margin: 20px 0;">🎁 MONEY SAVER COMBOS</h2>
+        <h2 style="text-align: center; color: var(--gold); font-size: 16px; margin: 20px 0;">🎁 BEST SAVER COMBOS</h2>
         <section id="comboPage" class="products"></section>
+
+        <h2 style="text-align: center; color: var(--gold); font-size: 16px; margin: 25px 0 5px;">⭐ CUSTOMER FEEDBACK</h2>
+        <div class="review-container">
+            <div class="review-scroll" id="reviewTrack">
+                </div>
+        </div>
     </div>
 
     <section id="orderPage" class="orderPage">
-        <button style="background: none; border: 1px solid var(--gold); color: var(--gold); width: auto; padding: 5px 15px; margin-bottom: 15px;" onclick="goBack()">← Back</button>
+        <button style="background: none; border: 1px solid var(--gold); color: var(--gold); width: auto; padding: 5px 15px; margin-bottom: 15px; border-radius: 5px; cursor: pointer;" onclick="goBack()">← Back</button>
         <div style="background:rgba(212, 175, 55, 0.1); padding:15px; border-radius:12px; border: 1px dashed var(--gold); margin-bottom: 15px;">
             <p id="selectedItemName" style="font-weight: bold;"></p>
             <p id="totalDisplay" style="font-size: 22px; color: var(--accent); font-weight: bold;"></p>
+            <p style="font-size: 10px; color: #aaa;">Delivery: FREE SHIPPING Applied ✓</p>
         </div>
         <form onsubmit="sendToWhatsApp(event)">
-            <input id="userName" placeholder="Pura Naam" required>
+            <input id="userName" placeholder="Aapka Naam" required>
             <input id="userPhone" type="tel" placeholder="Mobile Number" required>
             <input id="userAddress" placeholder="Address (Ghar No, Area)" required>
             <input id="userCity" placeholder="City" required>
             <input id="userPin" type="number" placeholder="Pincode" required>
-            <button type="submit">Confirm Order (COD)</button>
+            <button type="submit">Order Confirm Karein (COD)</button>
         </form>
     </section>
 
@@ -111,6 +127,19 @@
             {name:"Travel Mini", price:999}, {name:"His & Her", price:1449},
             {name:"Weekend Vibes", price:1199}, {name:"Office Pack", price:1699},
             {name:"Royal Combo", price:1499}, {name:"Ultimate Gift", price:2499}
+        ];
+
+        const reviewsData = [
+            {name: "Rahul Verma", city: "Delhi", text: "Royal Oud smells very expensive. Best quality ever!"},
+            {name: "Sneha Kapoor", city: "Mumbai", text: "Combo pack was the best gift for my brother."},
+            {name: "Vikram Singh", city: "Jaipur", text: "Fast delivery and great packaging. 10/10."},
+            {name: "Aman Deep", city: "Punjab", text: "Long lasting khushbu hai, office ke liye best hai."},
+            {name: "Pooja Rao", city: "Bangalore", text: "Skin friendly product. Midnight Musk is my fav."},
+            {name: "Karan Joshi", city: "Pune", text: "Free shipping and fast delivery. Very satisfied."},
+            {name: "Neha Gupta", city: "Lucknow", text: "Value for money. Branded perfumes jaisi quality."},
+            {name: "Sumit Malik", city: "Haryana", text: "Ocean Blue smells very fresh. Perfect for summers."},
+            {name: "Rohit Das", city: "Kolkata", text: "COD delivery was smooth. Good experience."},
+            {name: "Jatin", city: "Assam", text: "Got it in 4 days. Fragrance is very premium."}
         ];
 
         function init() {
@@ -135,6 +164,16 @@
                     <button onclick="openOrder('${c.name}', ${c.price})">Buy Combo</button>
                 </div>`;
             });
+
+            const revTrack = document.getElementById('reviewTrack');
+            reviewsData.forEach(r => {
+                revTrack.innerHTML += `
+                <div class="review-box">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    "${r.text}"
+                    <span class="rev-name">- ${r.name}, ${r.city}</span>
+                </div>`;
+            });
         }
 
         let curN = "", curP = 0;
@@ -147,13 +186,13 @@
             document.getElementById('totalDisplay').innerText = "Total: ₹" + p;
             window.scrollTo(0,0);
 
-            // History step for back button fix
+            // History step for mobile back button fix
             history.pushState({page: "checkout"}, "Checkout", "#checkout");
         }
 
         function goBack() { 
             if(window.location.hash === "#checkout") {
-                history.back(); // Ye khud popstate trigger karega
+                history.back(); // Trigger onpopstate
             } else {
                 showHome();
             }
@@ -164,28 +203,32 @@
             document.getElementById('homePage').style.display='block';
         }
 
-        // --- BACK BUTTON FIX LOGIC ---
+        // Back Button Fix
         window.onpopstate = function(event) {
             showHome();
         };
 
         function sendToWhatsApp(e) {
             e.preventDefault();
-            const msg = `*NEW ORDER*%0A*Item:* ${curN}%0A*Total:* ₹${curP}%0A*Name:* ${document.getElementById('userName').value}%0A*Address:* ${document.getElementById('userAddress').value}%0A*Mode:* COD`;
+            const n = document.getElementById('userName').value;
+            const ph = document.getElementById('userPhone').value;
+            const ad = document.getElementById('userAddress').value;
+            const msg = `*NEW ORDER (COD)*%0A*Item:* ${curN}%0A*Total:* ₹${curP}%0A*Customer:* ${n}%0A*Phone:* ${ph}%0A*Address:* ${ad}%0A*Delivery:* FREE SHIPPING`;
             window.open(`https://wa.me/918739853696?text=${msg}`);
         }
 
         function showSalePopup() {
             const popup = document.getElementById('sale-popup');
-            const names = ["Rahul", "Anjali", "Vikram", "Sneha", "Karan", "Pooja"];
-            const cities = ["Delhi", "Mumbai", "Jaipur", "Lucknow", "Pune"];
+            const names = ["Rahul", "Anjali", "Vikram", "Sneha", "Karan", "Pooja", "Sumit"];
+            const cities = ["Delhi", "Mumbai", "Jaipur", "Lucknow", "Pune", "Patna"];
+            
             setInterval(() => {
                 const name = names[Math.floor(Math.random()*names.length)];
                 const city = cities[Math.floor(Math.random()*cities.length)];
                 popup.innerHTML = `🛍️ <b>${name}</b> from <b>${city}</b><br>Just ordered via COD!`;
                 popup.style.display = 'block';
                 setTimeout(() => { popup.style.display = 'none'; }, 3000);
-            }, 5000);
+            }, 5000); 
         }
 
         init();
