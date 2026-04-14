@@ -3,139 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxury Perfume Store</title>
+    <title>Luxury Perfume Store | Premium Collection</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        :root { --gold: #D4AF37; --accent: #00ffae; --dark: #0f0f0f; }
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
-        body { background: linear-gradient(135deg,#0f0f0f,#1c1c1c); color:#fff; overflow-x:hidden; }
+        body { background: linear-gradient(135deg, #0f0f0f, #1c1c1c); color:#fff; overflow-x:hidden; }
 
-        .marquee { background:#000; color:#00ffae; padding:10px; overflow:hidden; white-space:nowrap; border-bottom:1px solid #00ffae; }
-        .marquee span { display:inline-block; animation:scroll 15s linear infinite; font-weight:600; }
+        .marquee { background:#000; color:var(--accent); padding:10px; overflow:hidden; white-space:nowrap; border-bottom:1px solid var(--gold); }
+        .marquee span { display:inline-block; animation:scroll 15s linear infinite; font-weight:600; font-size: 14px; }
         @keyframes scroll { 0% { transform:translateX(100%); } 100% { transform:translateX(-100%); } }
 
-        header { text-align:center; padding:20px; font-size:26px; font-weight:600; color:#00ffae; letter-spacing:1px; }
-        .timer { text-align:center; background:#ff4d4d; padding:8px; font-weight:600; font-size:14px; }
-        
-        .section-title { text-align:center; margin:25px 0 15px; font-size:1.4rem; color:#00ffae; text-transform:uppercase; border-bottom: 2px solid #333; display: inline-block; width: 100%; padding-bottom: 5px; }
+        header { text-align:center; padding:30px 20px; font-size:28px; font-weight:600; color:var(--gold); letter-spacing:3px; text-transform: uppercase; }
+        .timer { text-align:center; background:#ff4d4d; padding:8px; font-weight:600; font-size:14px; letter-spacing: 1px; }
 
-        .products { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; padding:12px; }
+        .section-title { text-align:center; margin:30px 0 10px; font-size:1.5rem; color:var(--gold); text-transform:uppercase; position: relative; }
+        .section-title::after { content:''; display:block; width:50px; height:2px; background:var(--gold); margin: 8px auto; }
+
+        .products { display:grid; grid-template-columns:repeat(2,1fr); gap:15px; padding:15px; max-width: 900px; margin: auto; }
         .card { 
-            background:rgba(255,255,255,0.05); 
-            border:1px solid rgba(255,255,255,0.1); 
-            padding:12px; border-radius:15px; text-align:center; position:relative; 
+            background:rgba(255,255,255,0.03); 
+            border:1px solid rgba(212, 175, 55, 0.2); 
+            padding:12px; border-radius:18px; text-align:center; position:relative; 
+            transition: 0.3s;
         }
-        .card img { width:100%; height:130px; object-fit:cover; border-radius:10px; }
-        .badge { position:absolute; top:8px; right:8px; background:#00ffae; color:#000; padding:2px 6px; font-size:10px; font-weight:bold; border-radius:4px; }
+        .card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .card img { width:100%; height:140px; object-fit:cover; border-radius:12px; margin-bottom: 10px; }
+        .badge { position:absolute; top:8px; right:8px; background:var(--gold); color:#000; padding:3px 8px; font-size:10px; font-weight:bold; border-radius:5px; }
         
         .price { margin:8px 0; }
-        .old { text-decoration:line-through; color:#888; font-size:12px; margin-right:5px; }
-        .new { color:#00ffae; font-weight:600; font-size:16px; }
-        .urgency { color:#ff4d4d; font-size:10px; font-weight:600; margin-bottom:8px; }
+        .old { text-decoration:line-through; color:#888; font-size:12px; }
+        .new { color:var(--accent); font-weight:600; font-size:18px; display: block; }
+        .urgency { color:#ff4d4d; font-size:10px; font-weight:600; margin-bottom:10px; }
 
-        select, input { width:100%; padding:10px; margin:8px 0; border-radius:8px; border:none; background:#222; color:#fff; }
+        select, input { width:100%; padding:12px; margin:8px 0; border-radius:10px; border:1px solid #333; background:#222; color:#fff; outline: none; }
         button { 
-            background:linear-gradient(45deg,#00ffae,#00cfff); border:none; padding:12px; 
-            border-radius:8px; cursor:pointer; width:100%; font-weight:600; color:#000; 
+            background:linear-gradient(45deg, var(--gold), #f3e092); border:none; padding:12px; 
+            border-radius:10px; cursor:pointer; width:100%; font-weight:700; color:#000; text-transform: uppercase;
         }
 
-        .orderPage { display:none; padding:20px; max-width:500px; margin:auto; }
-        .backBtn { background:#444; color:#fff; padding:8px 15px; width:auto; margin-bottom:15px; border-radius: 5px; cursor: pointer; border: none; }
+        .orderPage { display:none; padding:20px; max-width:500px; margin:auto; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        .backBtn { background:none; color:var(--gold); padding:8px; width:auto; border: 1px solid var(--gold); margin-bottom:20px; font-size: 12px; cursor: pointer; border-radius: 5px;}
 
-        .review-track { display:flex; overflow-x:auto; gap:15px; padding:15px; scrollbar-width:none; }
-        .review-box { min-width:220px; background:#1a1a1a; padding:15px; border-radius:12px; border:1px solid #333; font-size:13px; }
+        .sale-popup {
+            position: fixed; bottom: 20px; left: 20px; background: #fff; color: #000;
+            padding: 10px 15px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            display: none; z-index: 1000; font-size: 13px; border-left: 5px solid var(--gold);
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+
+        .review-track { display:flex; overflow-x:auto; gap:15px; padding:20px; scrollbar-width:none; }
+        .review-box { min-width:250px; background:#1a1a1a; padding:15px; border-radius:15px; border:1px solid #333; font-size:13px; }
+        .stars { color: var(--gold); margin-bottom: 5px; }
+
+        @media (max-width: 450px) { .products { gap: 10px; padding: 10px; } .card { padding: 8px; } }
     </style>
 </head>
 <body>
 
     <div class="marquee">
-        <span>🔥 Dhamaka Sale: Buy 2 Get 1 Free | Limited Stock | Free Delivery Pan India 🔥</span>
+        <span>🔥 LIMITED OFFER: Buy Any 2 Single Perfumes & Get 1 Free | Extra 10% Off on Best-Seller Combos | Free Delivery 🔥</span>
     </div>
 
-    <header>LUXURY PERFUME STORE</header>
+    <header>Luxe Aroma</header>
 
-    <div class="timer">⏳ Offer End In: <span id="countdown">10:00</span></div>
+    <div class="timer">⏱️ Offer Ends In: <span id="countdown">10:00</span></div>
 
     <div id="homePage">
-        <h2 class="section-title">🧴 Best Sellers</h2>
+        <h2 class="section-title">🧴 Single Premium Perfumes</h2>
         <section id="productPage" class="products"></section>
 
-        <h2 class="section-title">🎁 Exclusive Combos</h2>
+        <h2 class="section-title">🎁 Money Saver Combos</h2>
         <section id="comboPage" class="products"></section>
     </div>
 
     <section id="orderPage" class="orderPage">
         <button class="backBtn" onclick="goBack()">← Back</button>
-        <h2 style="margin-bottom:10px;">Order Details</h2>
-        <div id="orderSummary" style="background:#222; padding:15px; border-radius:10px; margin-bottom:15px;">
-            <p id="selectedItemName" style="color:#00ffae; font-weight:bold;"></p>
-            <p id="totalDisplay" style="font-size:18px; margin-top:5px;"></p>
+        <h2 style="margin-bottom:15px; color: var(--gold);">Checkout</h2>
+        <div id="orderSummary" style="background:rgba(212, 175, 55, 0.1); padding:20px; border-radius:12px; border: 1px dashed var(--gold); margin-bottom:20px;">
+            <p id="selectedItemName" style="font-weight:bold; font-size: 18px;"></p>
+            <p id="totalDisplay" style="font-size:22px; color:var(--accent); font-weight: bold; margin-top:5px;"></p>
         </div>
 
         <form onsubmit="sendToWhatsApp(event)">
             <input id="userName" type="text" placeholder="Aapka Naam" required>
             <input id="userPhone" type="tel" placeholder="Mobile Number" pattern="[0-9]{10}" required>
-            <input id="userAddress" type="text" placeholder="Ghar ka Pata" required>
+            <input id="userAddress" type="text" placeholder="Pura Pata (House, Area)" required>
             <input id="userCity" type="text" placeholder="Shehar (City)" required>
             <input id="userPin" type="number" placeholder="Pincode" required>
             <button type="submit">Order Confirm Karein (COD)</button>
         </form>
     </section>
 
-    <h2 class="section-title">⭐ Customer Reviews</h2>
+    <h2 class="section-title">⭐ Verified Reviews</h2>
     <div class="review-track">
-        <div class="review-box">⭐⭐⭐⭐⭐<br>Very premium quality! - Rahul</div>
-        <div class="review-box">⭐⭐⭐⭐⭐<br>Best for gifting purpose. - Aman</div>
-        <div class="review-box">⭐⭐⭐⭐☆<br>Long lasting fragrances. - Neha</div>
+        <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Unbelievable fragrance. Long lasting and premium."<br><b>- Rahul, Delhi</b></div>
+        <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Gifted the Trio pack to my brother, he loved it!"<br><b>- Sneha, Mumbai</b></div>
+        <div class="review-box"><div class="stars">⭐⭐⭐⭐⭐</div>"Great service and genuine products."<br><b>- Vikram, Jaipur</b></div>
     </div>
 
+    <div id="salePopup" class="sale-popup"></div>
+
     <script>
-        // --- NAYE PRODUCTS YAHAN ADD KIYE HAIN ---
+        // --- 10 SINGLE PERFUMES ---
         const perfumes = [
             {name:"Royal Oud", price:799, old:1999},
             {name:"Midnight Musk", price:899, old:2199},
+            {name:"Ocean Blue", price:749, old:1899},
             {name:"Fresh Citrus", price:699, old:1799},
             {name:"Dark Night", price:999, old:2499},
-            {name:"Ocean Blue", price:749, old:1899},
             {name:"Golden Sand", price:849, old:2099},
-            {name:"Rose Velvet", price:799, old:1999},
             {name:"Silver Mist", price:699, old:1699},
-            {name:"Aqua Cool", price:599, old:1499},
-            {name:"Black Leather", price:1099, old:2699}
+            {name:"Black Leather", price:1099, old:2699},
+            {name:"White Jasmine", price:799, old:1899},
+            {name:"Velvet Rose", price:899, old:2299}
         ];
 
+        // --- 10 COMBO PACKS ---
         const combos = [
-            {name:"Couple Combo (2 Pack)", price:1299, old:2999},
-            {name:"Luxury Trio (3 Pack)", price:1599, old:3499},
-            {name:"Party Pack (4 Pack)", price:1999, old:4999},
-            {name:"Gifting Kit", price:1399, old:2899},
-            {name:"Mini Travel Combo", price:899, old:1799}
+            {name:"Couple Special (2 Pack)", price:1299, old:2999},
+            {name:"Luxury Trio (3 Pack)", price:1599, old:3999},
+            {name:"Party Pack (4 Pack)", price:1999, old:5499},
+            {name:"Gifting Kit (Premium)", price:1399, old:2899},
+            {name:"Travel Mini (Pack of 5)", price:999, old:2499},
+            {name:"His & Her Combo", price:1449, old:3299},
+            {name:"Weekend Vibes (2 Pack)", price:1199, old:2599},
+            {name:"Office Essentials (3 Pack)", price:1699, old:4299},
+            {name:"Royal Collection (2 Pack)", price:1499, old:3499},
+            {name:"Ultimate Gift Box", price:2499, old:5999}
         ];
 
-        let selectedProduct = "";
-        let selectedPrice = 0;
-        let selectedQty = 1;
+        let sProduct = "", sPrice = 0, sQty = 1;
 
-        function loadStore() {
-            const pContainer = document.getElementById('productPage');
+        function init() {
+            const pDiv = document.getElementById('productPage');
             perfumes.forEach((p, i) => {
-                pContainer.innerHTML += `
+                pDiv.innerHTML += `
                 <div class="card">
+                    <div class="badge">Sale</div>
                     <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=300" alt="perfume">
-                    <h3>${p.name}</h3>
+                    <h3 style="font-size:13px; margin-top:5px;">${p.name}</h3>
                     <div class="price"><span class="old">₹${p.old}</span> <span class="new">₹${p.price}</span></div>
-                    <div class="urgency">⚡ Only ${Math.floor(Math.random()*5)+2} left</div>
-                    <select id="qP${i}"><option value="1">1 Qty</option><option value="2">2 Qty</option></select>
+                    <div class="urgency">⚡ Only ${Math.floor(Math.random()*4)+2} left!</div>
+                    <select id="qP${i}"><option value="1">1 Qty</option><option value="2">2 Qty (Get 1 FREE)</option></select>
                     <button onclick="openOrder('${p.name}', ${p.price}, 'qP${i}')">Order</button>
                 </div>`;
             });
 
-            const cContainer = document.getElementById('comboPage');
+            const cDiv = document.getElementById('comboPage');
             combos.forEach((c, i) => {
-                cContainer.innerHTML += `
+                cDiv.innerHTML += `
                 <div class="card">
-                    <div class="badge">Combo Offer</div>
+                    <div class="badge">Best Value</div>
                     <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300" alt="combo">
-                    <h3>${c.name}</h3>
+                    <h3 style="font-size:13px;">${c.name}</h3>
                     <div class="price"><span class="old">₹${c.old}</span> <span class="new">₹${c.price}</span></div>
                     <select id="qC${i}"><option value="1">1 Combo</option><option value="2">2 Combo</option></select>
                     <button onclick="openOrder('${c.name}', ${c.price}, 'qC${i}')">Buy Combo</button>
@@ -143,14 +166,12 @@
             });
         }
 
-        function openOrder(name, price, qtyId) {
-            selectedProduct = name;
-            selectedPrice = price;
-            selectedQty = document.getElementById(qtyId).value;
+        function openOrder(name, price, qId) {
+            sProduct = name; sPrice = price; sQty = document.getElementById(qId).value;
             document.getElementById('homePage').style.display = 'none';
             document.getElementById('orderPage').style.display = 'block';
-            document.getElementById('selectedItemName').innerText = "Item: " + selectedProduct + " (Qty: " + selectedQty + ")";
-            document.getElementById('totalDisplay').innerText = "Total: ₹" + (selectedPrice * selectedQty);
+            document.getElementById('selectedItemName').innerText = sProduct + " (Qty: " + sQty + ")";
+            document.getElementById('totalDisplay').innerText = "Total: ₹" + (sPrice * sQty);
             window.scrollTo(0,0);
         }
 
@@ -161,25 +182,37 @@
 
         function sendToWhatsApp(e) {
             e.preventDefault();
-            const name = document.getElementById('userName').value;
-            const phone = document.getElementById('userPhone').value;
-            const address = document.getElementById('userAddress').value;
-            const city = document.getElementById('userCity').value;
-            const pin = document.getElementById('userPin').value;
-            const myNumber = "918739853696"; 
-            const msg = `*NEW ORDER*%0A%0A*Item:* ${selectedProduct}%0A*Qty:* ${selectedQty}%0A*Total:* ₹${selectedPrice * selectedQty}%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Address:* ${address}, ${city} - ${pin}%0A*Payment:* COD`;
-            window.open(`https://wa.me/${myNumber}?text=${msg}`, '_blank');
+            const n = document.getElementById('userName').value;
+            const ph = document.getElementById('userPhone').value;
+            const ad = document.getElementById('userAddress').value;
+            const ci = document.getElementById('userCity').value;
+            const pi = document.getElementById('userPin').value;
+            const msg = `*NEW ORDER RECEIVED*%0A%0A*Item:* ${sProduct}%0A*Qty:* ${sQty}%0A*Total:* ₹${sPrice * sQty}%0A%0A*Name:* ${n}%0A*Phone:* ${ph}%0A*Address:* ${ad}, ${ci} - ${pi}%0A*Payment:* COD`;
+            window.open(`https://wa.me/918739853696?text=${msg}`, '_blank');
         }
 
-        let time = 600;
+        function showPopup() {
+            const popup = document.getElementById('salePopup');
+            const pNames = ["Aman", "Priya", "Rahul", "Sonia", "Karan", "Megha", "Sumit", "Neha"];
+            const pCities = ["Delhi", "Mumbai", "Pune", "Lucknow", "Surat", "Patna", "Indore"];
+            setInterval(() => {
+                const name = pNames[Math.floor(Math.random()*pNames.length)];
+                const city = pCities[Math.floor(Math.random()*pCities.length)];
+                popup.innerHTML = `🛍️ <b>${name}</b> from ${city} just ordered!`;
+                popup.style.display = 'block';
+                setTimeout(() => { popup.style.display = 'none'; }, 4000);
+            }, 10000);
+        }
+
+        let t = 600;
         setInterval(() => {
-            let m = Math.floor(time/60);
-            let s = time % 60;
+            let m = Math.floor(t/60); let s = t % 60;
             document.getElementById('countdown').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
-            if(time > 0) time--;
+            if(t > 0) t--;
         }, 1000);
 
-        loadStore();
+        init();
+        showPopup();
     </script>
 </body>
 </html>
