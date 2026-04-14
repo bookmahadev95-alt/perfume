@@ -54,13 +54,23 @@ gap:12px;
 padding:12px
 }
 
+@media(max-width:500px){
+.products{grid-template-columns:1fr;}
+}
+
 .card{
 background:rgba(255,255,255,0.05);
 padding:10px;
 border-radius:12px;
 text-align:center;
 position:relative;
-transition:0.3s
+transition:0.3s;
+animation:fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(10px)}
+to{opacity:1; transform:translateY(0)}
 }
 
 .card:hover{transform:translateY(-3px)}
@@ -77,14 +87,15 @@ border-radius:10px
 .new{color:#00ffae;font-weight:600}
 
 button{
-background:#00ffae;
+background:linear-gradient(45deg,#00ffae,#00cfff);
 border:none;
-padding:8px;
+padding:10px;
 border-radius:6px;
 cursor:pointer;
 width:100%;
 margin-top:5px;
-font-weight:600
+font-weight:600;
+color:#000;
 }
 
 select{
@@ -118,11 +129,11 @@ border:none;
 border-radius:6px
 }
 
-.trust{text-align:center;margin:10px}
+.trust{text-align:center;margin:10px;font-size:13px}
 
 .backBtn{background:#fff;color:#000;margin-bottom:10px}
 
-/* REVIEW SLIDER */
+/* REVIEW */
 .review-slider{overflow:hidden}
 .review-track{
 display:flex;
@@ -141,7 +152,6 @@ border-radius:10px
 100%{transform:translateX(-100%)}
 }
 
-/* POPUP */
 .popup{
 position:fixed;
 bottom:20px;
@@ -167,33 +177,12 @@ display:none;
 <div class="timer">⏳ Offer Ends In: <span id="countdown">10:00</span></div>
 
 <div class="trust">
-🚚 Free Delivery | 💵 COD Available | 🔒 Secure Order
+⭐ 4.8 Rating | 🚚 Free Delivery | 🔥 5000+ Happy Customers
 </div>
 
 <h2 class="section-title">🧴 Premium Perfumes</h2>
 <section id="productPage" class="products"></section>
 
-<h2 class="section-title">🎁 Combo Offers</h2>
-<section id="comboPage" class="products"></section>
-
-<!-- REVIEWS -->
-<h2 class="section-title">⭐ Customer Reviews</h2>
-<div class="review-slider">
-<div class="review-track">
-<div class="review-box">Amazing fragrance 🔥 - Rahul ⭐⭐⭐⭐⭐</div>
-<div class="review-box">Combo best hai - Aman ⭐⭐⭐⭐⭐</div>
-<div class="review-box">Premium smell - Pooja ⭐⭐⭐⭐⭐</div>
-<div class="review-box">Fast delivery - Neha ⭐⭐⭐⭐☆</div>
-<div class="review-box">Gift perfect ❤️ - Karan ⭐⭐⭐⭐⭐</div>
-<div class="review-box">Quality top - Rohit ⭐⭐⭐⭐⭐</div>
-<div class="review-box">Daily use best - Vikram ⭐⭐⭐⭐⭐</div>
-<div class="review-box">Dobara order karunga - Deepak ⭐⭐⭐⭐⭐</div>
-<div class="review-box">Smell achi hai - Simran ⭐⭐⭐⭐☆</div>
-<div class="review-box">Value for money 👍 - Ankit ⭐⭐⭐⭐⭐</div>
-</div>
-</div>
-
-<!-- ORDER PAGE -->
 <section id="orderPage" class="orderPage">
 <button class="backBtn" onclick="goBack()">⬅ Back</button>
 <h2>Complete Your Order</h2>
@@ -207,90 +196,62 @@ display:none;
 
 <input id="selectedProduct" readonly>
 <input id="selectedQty" readonly>
+<input id="totalPrice" readonly>
 
 <button type="submit">Confirm Order (COD)</button>
 </form>
 </section>
 
-<!-- POPUP -->
 <div id="popup" class="popup"></div>
 
 <script>
 
-/* PRODUCTS */
 let perfumes=[
-{name:"Royal Oud",price:799,old:1999,tag:"Bestseller"},
-{name:"Midnight Musk",price:899,old:2199,tag:"Premium"},
-{name:"Fresh Citrus",price:699,old:1799,tag:"Sale"},
-{name:"Dark Night",price:999,old:2499,tag:"Luxury"},
-{name:"Ocean Breeze",price:749,old:1899,tag:"Trending"},
-{name:"Golden Spice",price:849,old:2099,tag:"Hot"},
-{name:"Silver Mist",price:799,old:1999,tag:"New"},
-{name:"Black Amber",price:999,old:2499,tag:"Luxury"},
-{name:"Cool Water",price:699,old:1799,tag:"Sale"},
-{name:"Red Desire",price:899,old:2199,tag:"Premium"},
-{name:"Blue Wave",price:749,old:1899,tag:"Trending"},
-{name:"Night King",price:1099,old:2699,tag:"Luxury"}
+{name:"Royal Oud",price:799},
+{name:"Midnight Musk",price:899},
+{name:"Fresh Citrus",price:699},
+{name:"Dark Night",price:999}
 ];
 
-let combos=[
-{name:"Luxury Combo Pack",price:1299,old:2999},
-{name:"Couple Special Combo",price:1499,old:3499},
-{name:"Party Combo Pack",price:1199,old:2799},
-{name:"Premium Gift Combo",price:1599,old:3999},
-{name:"Office Daily Combo",price:999,old:2499},
-{name:"Long Lasting Combo",price:1399,old:3299}
-];
-
+let priceMap={};
 let container=document.getElementById('productPage');
-let comboContainer=document.getElementById('comboPage');
 
 perfumes.forEach((p,i)=>{
+priceMap[p.name]=p.price;
+
+let stock=Math.floor(Math.random()*3)+2;
+
 container.innerHTML+=`
 <div class="card">
-<div class="badge">${p.tag}</div>
 <img src="https://source.unsplash.com/400x400/?perfume,${p.name}">
 <h3>${p.name}</h3>
-<p style="font-size:12px;color:#aaa">Long lasting premium fragrance</p>
-<div class="price"><span class="old">₹${p.old}</span> <span class="new">₹${p.price}</span></div>
-<div class="urgency">⚡ Only ${Math.floor(Math.random()*5)+1} left</div>
+<div class="price"><span class="new">₹${p.price}</span></div>
+<div class="urgency">⚡ Only ${stock} left</div>
 <select id="p${i}"><option>1</option><option>2</option><option>3</option></select>
 <button onclick="openForm('${p.name}','p${i}')">Order Now</button>
 </div>`;
 });
 
-combos.forEach((c,i)=>{
-comboContainer.innerHTML+=`
-<div class="card">
-<div class="badge">Combo</div>
-<img src="https://source.unsplash.com/400x400/?perfume,gift,${i}">
-<h3>${c.name}</h3>
-<p style="font-size:12px;color:#aaa">Best value combo offer</p>
-<div class="price"><span class="old">₹${c.old}</span> <span class="new">₹${c.price}</span></div>
-<div class="urgency">🔥 Buy 2 Get 1 Free</div>
-<select id="c${i}"><option>1</option><option>2</option></select>
-<button onclick="openForm('${c.name}','c${i}')">Order Combo</button>
-</div>`;
-});
-
-/* FORM */
 function openForm(product,qtyId){
 let qty=document.getElementById(qtyId).value;
+
 document.getElementById('productPage').style.display='none';
-document.getElementById('comboPage').style.display='none';
 document.getElementById('orderPage').style.display='block';
+
 document.getElementById('selectedProduct').value=product;
 document.getElementById('selectedQty').value=qty;
+
+let total=priceMap[product]*qty;
+document.getElementById('totalPrice').value="Total: ₹"+total;
+
 window.scrollTo(0,0);
 }
 
 function goBack(){
 document.getElementById('orderPage').style.display='none';
 document.getElementById('productPage').style.display='grid';
-document.getElementById('comboPage').style.display='grid';
 }
 
-/* WHATSAPP */
 function submitForm(e){
 e.preventDefault();
 
@@ -304,32 +265,16 @@ let qty=document.getElementById('selectedQty').value;
 
 let number="918739853696";
 
-let msg=`🔥 NEW ORDER 🔥%0AName:${name}%0APhone:${phone}%0AAddress:${address}%0ACity:${city}%0APincode:${pincode}%0AProduct:${product}%0AQty:${qty}%0A✅ COD Confirm`;
+let msg=`🛒 *NEW ORDER* %0A
+👤 Name: ${name} %0A
+📞 Phone: ${phone} %0A
+📍 Address: ${address}, ${city} - ${pincode} %0A
+🧴 Product: ${product} %0A
+📦 Quantity: ${qty} %0A
+💰 Payment: COD`;
 
 window.open(`https://wa.me/${number}?text=${msg}`,'_blank');
 }
-
-/* TIMER */
-let time=600;
-setInterval(()=>{
-let m=Math.floor(time/60);
-let s=time%60;
-document.getElementById("countdown").innerText=`${m}:${s<10?'0'+s:s}`;
-if(time>0) time--;
-},1000);
-
-/* POPUP */
-let names=["Rahul","Aman","Pooja","Neha","Karan","Rohit","Vikram","Deepak"];
-let products=["Royal Oud","Musk Combo","Citrus","Night Combo"];
-
-setInterval(()=>{
-let popup=document.getElementById("popup");
-let name=names[Math.floor(Math.random()*names.length)];
-let product=products[Math.floor(Math.random()*products.length)];
-popup.innerText=`${name} just ordered ${product}`;
-popup.style.display="block";
-setTimeout(()=>popup.style.display="none",3000);
-},5000);
 
 </script>
 
