@@ -52,6 +52,19 @@ container.innerHTML+=`
 <button onclick="quickOrder('${p}','s${i}')">Order COD</button>
 </div>`;
 });
+function submitForm(e){
+e.preventDefault();
+let name=document.getElementById('name').value;
+let phone=document.getElementById('phone').value;
+let address=document.getElementById('address').value;
+let city=document.getElementById('city').value;
+let pincode=document.getElementById('pincode').value;
+let product=document.getElementById('product').value;
+let qty=document.getElementById('qty').value;
+let number="91XXXXXXXXXX";
+let msg=`COD Order:%0AName:${name}%0APhone:${phone}%0AAddress:${address}%0ACity:${city}%0APincode:${pincode}%0AProduct:${product}%0AQty:${qty}`;
+window.open(`https://wa.me/${number}?text=${msg}`,'_blank');
+}
 </script>
 
 </section>
@@ -75,6 +88,46 @@ container2.innerHTML+=`
 });
 </script>
 
+</section>
+
+<section style="padding:20px;background:#111;margin:20px;border-radius:12px">
+<h2 style="text-align:center">💳 Place Your Order (COD)</h2>
+<form onsubmit="submitForm(event)">
+<input id="name" placeholder="Full Name" required>
+<input id="phone" placeholder="Mobile Number" required>
+<input id="address" placeholder="Full Address" required>
+<input id="city" placeholder="City" required>
+<input id="pincode" placeholder="Pincode" required>
+<select id="product" required>
+<option value="">Select Product</option>
+<option>Royal Oud</option>
+<option>Midnight Musk</option>
+<option>Fresh Citrus</option>
+<option>Dark Night</option>
+<option>Ocean Breeze</option>
+<option>Golden Spice</option>
+<option>Royal Rose</option>
+<option>Ice Cool</option>
+<option>Black Oud</option>
+<option>Silver Mist</option>
+<option>Oud Combo</option>
+<option>Musk Combo</option>
+<option>Citrus Combo</option>
+<option>Night Combo</option>
+<option>Ocean Combo</option>
+<option>Spice Combo</option>
+<option>Rose Combo</option>
+<option>Cool Combo</option>
+<option>Black Combo</option>
+<option>Premium Combo</option>
+</select>
+<select id="qty">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+</select>
+<button type="submit">Order Now (COD)</button>
+</form>
 </section>
 
 <footer>🚚 Free Delivery | 💵 Cash on Delivery Available</footer>
