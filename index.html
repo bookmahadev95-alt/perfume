@@ -7,24 +7,37 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#0f0f0f;color:#fff}
+body{background:linear-gradient(135deg,#0f0f0f,#1c1c1c);color:#fff}
 .marquee{background:#000;color:#00ffae;padding:10px;overflow:hidden;white-space:nowrap}
 .marquee span{display:inline-block;padding-left:100%;animation:scroll 12s linear infinite}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
-header{text-align:center;padding:15px;font-size:26px;font-weight:600}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:15px;padding:20px}
-.card{background:#1a1a1a;padding:12px;border-radius:12px;text-align:center}
-button{background:#00ffae;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;margin:4px}
+header{text-align:center;padding:15px;font-size:26px;font-weight:600;letter-spacing:2px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;padding:20px}
+.card{background:rgba(255,255,255,0.05);backdrop-filter:blur(10px);padding:12px;border-radius:16px;text-align:center;box-shadow:0 0 15px rgba(0,255,174,0.1);transition:0.3s}
+.card:hover{transform:translateY(-5px);box-shadow:0 0 25px rgba(0,255,174,0.3)}
+.card img{width:100%;height:180px;object-fit:cover;border-radius:12px}
+.price{margin:6px 0}
+.old{text-decoration:line-through;color:#aaa}
+.new{color:#00ffae;font-weight:600}
+button{background:#00ffae;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;margin:4px;font-weight:600}
+select{padding:6px;border-radius:6px;margin-top:5px}
 .orderPage{display:none;padding:20px}
-input,select{width:100%;padding:10px;margin:8px 0;border:none;border-radius:6px}
+input{width:100%;padding:10px;margin:8px 0;border:none;border-radius:6px}
+.section-title{text-align:center;margin-top:20px;font-size:22px}
+.badge{position:absolute;top:8px;right:8px;background:#00ffae;color:#000;padding:4px 8px;border-radius:6px;font-size:12px}
+.urgency{text-align:center;color:#ff4d4d;margin-top:5px}
 </style>
 </head>
 <body>
 
-<div class="marquee"><span>🔥 Luxury Perfume Sale | Buy 2 Get 1 Free 🔥</span></div>
+<div class="marquee"><span>🔥 Luxury Perfume Sale | Buy 2 Get 1 Free | Limited Stock 🔥</span></div>
 <header>Luxury Perfume Store</header>
 
+<h2 class="section-title">🧴 Premium Perfumes</h2>
 <section id="productPage" class="products"></section>
+
+<h2 class="section-title">🎁 Combo Offers</h2>
+<section id="comboPage" class="products"></section>
 
 <section id="orderPage" class="orderPage">
 <h2>💳 Complete Your Order</h2>
@@ -42,20 +55,41 @@ input,select{width:100%;padding:10px;margin:8px 0;border:none;border-radius:6px}
 
 <script>
 let perfumes=["Royal Oud","Midnight Musk","Fresh Citrus","Dark Night","Ocean Breeze","Golden Spice","Royal Rose","Ice Cool","Black Oud","Silver Mist"];
+let combos=["Oud Combo","Musk Combo","Citrus Combo","Night Combo","Ocean Combo","Spice Combo","Rose Combo","Cool Combo","Black Combo","Premium Combo"];
+
 let container=document.getElementById('productPage');
+let comboContainer=document.getElementById('comboPage');
 
 perfumes.forEach((p,i)=>{
 container.innerHTML+=`
 <div class="card">
+<div class="badge">Best Seller</div>
+<img src="https://source.unsplash.com/400x400/?luxury,perfume,${i}">
 <h3>${p}</h3>
-<select id="q${i}"><option>1</option><option>2</option></select>
-<button onclick="openForm('${p}','q${i}')">Order COD</button>
+<div class="price"><span class="old">₹1999</span> <span class="new">₹${699+Math.floor(Math.random()*300)}</span></div>
+<div class="urgency">⚡ Only ${Math.floor(Math.random()*5)+2} left</div>
+<select id="p${i}"><option>1</option><option>2</option><option>3</option></select>
+<button onclick="openForm('${p}','p${i}')">Order COD</button>
+</div>`;
+});
+
+combos.forEach((c,i)=>{
+comboContainer.innerHTML+=`
+<div class="card">
+<div class="badge">Hot Deal</div>
+<img src="https://source.unsplash.com/400x400/?perfume,bottle,luxury,${i}">
+<h3>${c}</h3>
+<div class="price"><span class="old">₹2999</span> <span class="new">₹${999+Math.floor(Math.random()*400)}</span></div>
+<div class="urgency">🔥 Selling Fast</div>
+<select id="c${i}"><option>1</option><option>2</option></select>
+<button onclick="openForm('${c}','c${i}')">Order Combo COD</button>
 </div>`;
 });
 
 function openForm(product,qtyId){
 let qty=document.getElementById(qtyId).value;
 document.getElementById('productPage').style.display='none';
+document.getElementById('comboPage').style.display='none';
 document.getElementById('orderPage').style.display='block';
 document.getElementById('selectedProduct').value=product;
 document.getElementById('selectedQty').value=qty;
