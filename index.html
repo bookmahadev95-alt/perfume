@@ -1,421 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Luxury Perfume Store</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Perfume Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+        body { background: linear-gradient(135deg,#0f0f0f,#1c1c1c); color:#fff; overflow-x:hidden; }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+        /* Marquee Text */
+        .marquee { background:#000; color:#00ffae; padding:10px; overflow:hidden; white-space:nowrap; border-bottom:1px solid #00ffae; }
+        .marquee span { display:inline-block; animation:scroll 15s linear infinite; font-weight:600; }
+        @keyframes scroll { 0% { transform:translateX(100%); } 100% { transform:translateX(-100%); } }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+        header { text-align:center; padding:20px; font-size:26px; font-weight:600; color:#00ffae; letter-spacing:1px; }
+        .timer { text-align:center; background:#ff4d4d; padding:8px; font-weight:600; font-size:14px; }
+        .trust { text-align:center; margin:10px; font-size:12px; color:#aaa; }
 
-body{
-background:linear-gradient(135deg,#0f0f0f,#1c1c1c);
-color:#fff
-}
+        .section-title { text-align:center; margin:20px 0; font-size:1.4rem; color:#00ffae; text-transform:uppercase; }
 
-.products{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-padding:12px
-}
+        /* Product Cards */
+        .products { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; padding:12px; }
+        .card { 
+            background:rgba(255,255,255,0.05); 
+            border:1px solid rgba(255,255,255,0.1); 
+            padding:12px; border-radius:15px; text-align:center; position:relative; 
+        }
+        .card img { width:100%; height:130px; object-fit:cover; border-radius:10px; }
+        .badge { position:absolute; top:8px; right:8px; background:#00ffae; color:#000; padding:2px 6px; font-size:10px; font-weight:bold; border-radius:4px; }
+        
+        .price { margin:8px 0; }
+        .old { text-decoration:line-through; color:#888; font-size:12px; margin-right:5px; }
+        .new { color:#00ffae; font-weight:600; font-size:16px; }
+        .urgency { color:#ff4d4d; font-size:10px; font-weight:600; margin-bottom:8px; }
 
-.marquee{background:#000;color:#00ffae;padding:10px;overflow:hidden}
-.marquee span{display:inline-block;padding-left:100%;animation:scroll 10s linear infinite}
-.marquee{
-background:#000;
-color:#00ffae;
-padding:10px;
-overflow:hidden;
-white-space:nowrap;
-  background:#000;
-  color:#00ffae;
-  padding:10px;
-  overflow:hidden;
-  white-space:nowrap;
-}
+        select, input { width:100%; padding:10px; margin:8px 0; border-radius:8px; border:none; background:#222; color:#fff; }
+        button { 
+            background:linear-gradient(45deg,#00ffae,#00cfff); border:none; padding:12px; 
+            border-radius:8px; cursor:pointer; width:100%; font-weight:600; color:#000; 
+        }
 
-.marquee span{
-display:inline-block;
-animation:scroll 8s linear infinite;
-  display:inline-block;
-  white-space:nowrap;
-  animation:scroll 8s linear infinite;
-}
+        /* Order Page */
+        .orderPage { display:none; padding:20px; max-width:500px; margin:auto; }
+        .backBtn { background:#444; color:#fff; padding:8px 15px; width:auto; margin-bottom:15px; }
 
-  
-@keyframes scroll{
-0%{transform:translateX(0)}
-100%{transform:translateX(-100%)}
-}
-
-header{text-align:center;padding:15px;font-size:24px;font-weight:600}
-
-.timer{text-align:center;background:#ff4d4d;padding:10px;font-weight:600}
-
-.card{
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(10px);
-border:1px solid rgba(255,255,255,0.1);
-padding:12px;
-border-radius:16px;
-background:rgba(255,255,255,0.05);
-padding:10px;
-border-radius:12px;
-text-align:center;
-position:relative;
-transition:0.3s;
-box-shadow:0 0 15px rgba(0,255,174,0.1);
-animation:fadeIn 0.5s ease;
-}
-
-.card:hover{
-transform:scale(1.05);
-box-shadow:0 0 25px rgba(0,255,174,0.4);
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(10px)}
-to{opacity:1; transform:translateY(0)}
-}
-
-.card img{
-width:100%;
-height:120px;
-object-fit:cover;
-border-radius:10px
-}
-
-.price{margin:6px 0}
-.old{text-decoration:line-through;color:#aaa}
-.new{color:#00ffae;font-weight:600}
-
-button{
-background:linear-gradient(45deg,#00ffae,#00cfff);
-border:none;
-padding:10px;
-border-radius:6px;
-cursor:pointer;
-width:100%;
-margin-top:5px;
-font-weight:600;
-color:#000;
-}
-
-select,input{
-width:100%;
-padding:8px;
-margin-top:5px;
-border-radius:6px;
-border:none;
-select{width:100%;padding:6px;margin-top:5px;border-radius:6px}
-
-.badge{
-position:absolute;
-top:5px;
-right:5px;
-background:#00ffae;
-color:#000;
-padding:3px 6px;
-font-size:10px;
-border-radius:5px
-}
-
-.section-title{text-align:center;margin-top:15px}
-.urgency{color:#ff4d4d;font-size:12px}
-
-.orderPage{display:none;padding:15px}
-
-/* ⭐ PREMIUM REVIEWS DESIGN */
-.review-slider{overflow:hidden}
-.review-track{display:flex;animation:scrollReviews 25s linear infinite}
-input{width:100%;padding:10px;margin:8px 0;border:none;border-radius:6px}
-
-@keyframes scrollReviews{
-0%{transform:translateX(0)}
-100%{transform:translateX(-100%)}
-}
-.trust{text-align:center;margin:10px;font-size:13px}
-
-.backBtn{background:#fff;color:#000;margin-bottom:10px}
-
-.review-slider{overflow:hidden}
-.review-track{display:flex;animation:scrollReviews 20s linear infinite}
-.review-box{
-min-width:220px;
-min-width:200px;
-margin:10px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(10px);
-border:1px solid rgba(255,255,255,0.2);
-padding:12px;
-border-radius:12px;
-box-shadow:0 0 10px rgba(0,255,174,0.2);
-transition:0.3s;
-background:#111;
-padding:10px;
-border-radius:10px
-}
-
-.review-box:hover{
-transform:scale(1.05);
-box-shadow:0 0 20px rgba(0,255,174,0.5);
-@keyframes scrollReviews{
-0%{transform:translateX(0)}
-100%{transform:translateX(-100%)}
-}
-
-.backBtn{background:#fff;color:#000;margin-bottom:10px}
-.popup{
-position:fixed;
-bottom:20px;
-left:20px;
-background:#000;
-padding:10px 15px;
-border-radius:10px;
-color:#00ffae;
-font-size:13px;
-display:none;
-}
-</style>
+        /* Review Section */
+        .review-track { display:flex; overflow-x:auto; gap:15px; padding:15px; scrollbar-width:none; }
+        .review-box { min-width:220px; background:#1a1a1a; padding:15px; border-radius:12px; border:1px solid #333; font-size:13px; }
+    </style>
 </head>
-
 <body>
 
-<div class="marquee">
-<span>🔥 Buy 2 Get 1 Free | Free Delivery | Limited Stock 🔥</span>
-</div>
+    <div class="marquee">
+        <span>🔥 Dhamaka Offer: Buy 2 Get 1 Free | Limited Stock | Free Delivery Pan India 🔥</span>
+    </div>
 
-<header>Luxury Perfume Store</header>
+    <header>LUXURY PERFUMES</header>
 
-<div class="timer">⏳ Offer Ends Soon</div>
-<div class="timer">⏳ Offer Ends In: <span id="countdown">10:00</span></div>
+    <div class="timer">⏳ Offer Khatam Hone Mein: <span id="countdown">10:00</span></div>
+    <div class="trust">⭐ 4.8/5 Rating | 🚚 Free Fast Delivery | 💰 Cash on Delivery</div>
 
-<div class="trust">
-⭐ 4.8 Rating | 🚚 Free Delivery | 🔥 5000+ Happy Customers
-</div>
+    <div id="homePage">
+        <h2 class="section-title">🧴 Premium Collection</h2>
+        <section id="productPage" class="products"></section>
 
-<h2 class="section-title">🧴 Premium Perfumes</h2>
-<section id="productPage" class="products"></section>
+        <h2 class="section-title">🎁 Combo Offers</h2>
+        <section id="comboPage" class="products"></section>
+    </div>
 
-<h2 class="section-title">🎁 Combo Offers</h2>
-<section id="comboPage" class="products"></section>
+    <section id="orderPage" class="orderPage">
+        <button class="backBtn" onclick="goBack()">← Back</button>
+        <h2 style="margin-bottom:10px;">Order Details</h2>
+        <div id="orderSummary" style="background:#222; padding:15px; border-radius:10px; margin-bottom:15px;">
+            <p id="selectedItemName" style="color:#00ffae; font-weight:bold;"></p>
+            <p id="totalDisplay" style="font-size:18px; margin-top:5px;"></p>
+        </div>
 
-<!-- ORDER PAGE -->
-<section id="orderPage" class="orderPage">
-<button class="backBtn" onclick="goBack()">⬅ Back</button>
+        <form onsubmit="sendToWhatsApp(event)">
+            <input id="userName" type="text" placeholder="Aapka Naam" required>
+            <input id="userPhone" type="tel" placeholder="Mobile Number (10 digit)" pattern="[0-9]{10}" required>
+            <input id="userAddress" type="text" placeholder="Pura Pata (House No, Area)" required>
+            <input id="userCity" type="text" placeholder="Shehar (City)" required>
+            <input id="userPin" type="number" placeholder="Pincode" required>
+            <button type="submit">Order Confirm Karein (COD)</button>
+        </form>
+    </section>
 
-<h2>Complete Your Order</h2>
+    <h2 class="section-title">⭐ Customer Reviews</h2>
+    <div class="review-track">
+        <div class="review-box">⭐⭐⭐⭐⭐<br>Bohot achhi khushbu hai, long lasting! - Rahul</div>
+        <div class="review-box">⭐⭐⭐⭐⭐<br>Combo pack best value for money hai. - Aman</div>
+        <div class="review-box">⭐⭐⭐⭐☆<br>Packaging bohot premium thi. - Neha</div>
+    </div>
 
-<input id="name" placeholder="Full Name">
-<input id="phone" placeholder="Mobile Number">
-<input id="address" placeholder="Address">
-<form onsubmit="submitForm(event)">
-<input id="name" placeholder="Full Name" required>
-<input id="phone" placeholder="Mobile Number" pattern="[0-9]{10}" required>
-<input id="address" placeholder="Full Address" required>
-<input id="city" placeholder="City" required>
-<input id="pincode" placeholder="Pincode" required>
+    <script>
+        const perfumes = [
+            {name:"Royal Oud", price:799, old:1999},
+            {name:"Midnight Musk", price:899, old:2199},
+            {name:"Fresh Citrus", price:699, old:1799},
+            {name:"Dark Night", price:999, old:2499}
+        ];
 
-<input id="selectedProduct" readonly>
-<input id="selectedQty" readonly>
-<input id="totalPrice" readonly>
+        const combos = [
+            {name:"Couple Combo", price:1299, old:2999},
+            {name:"Luxury Trio", price:1599, old:3499}
+        ];
 
-<button onclick="submitForm()">Confirm Order</button>
-<button type="submit">Confirm Order (COD)</button>
-</form>
+        let selectedProduct = "";
+        let selectedPrice = 0;
+        let selectedQty = 1;
 
-<!-- ⭐ REVIEW SYSTEM -->
-<!-- ⭐ REVIEWS BELOW FORM -->
-<h2 class="section-title">⭐ Customer Reviews</h2>
+        function loadStore() {
+            const pContainer = document.getElementById('productPage');
+            perfumes.forEach((p, i) => {
+                pContainer.innerHTML += `
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=300" alt="perfume">
+                    <h3>${p.name}</h3>
+                    <div class="price"><span class="old">₹${p.old}</span> <span class="new">₹${p.price}</span></div>
+                    <div class="urgency">⚡ Sirf ${Math.floor(Math.random()*4)+2} bache hain</div>
+                    <select id="qP${i}"><option value="1">1 Qty</option><option value="2">2 Qty</option></select>
+                    <button onclick="openOrder('${p.name}', ${p.price}, 'qP${i}')">Order Now</button>
+                </div>`;
+            });
 
-<input id="reviewName" placeholder="Your Name">
-<select id="reviewRating">
-<option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
-<option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
-<option value="⭐⭐⭐">⭐⭐⭐</option>
-</select>
-<input id="reviewText" placeholder="Write review">
-<button onclick="addReview()">Submit Review</button>
+            const cContainer = document.getElementById('comboPage');
+            combos.forEach((c, i) => {
+                cContainer.innerHTML += `
+                <div class="card">
+                    <div class="badge">Sasta</div>
+                    <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300" alt="perfume">
+                    <h3>${c.name}</h3>
+                    <div class="price"><span class="old">₹${c.old}</span> <span class="new">₹${c.price}</span></div>
+                    <select id="qC${i}"><option value="1">1 Combo</option><option value="2">2 Combo</option></select>
+                    <button onclick="openOrder('${c.name}', ${c.price}, 'qC${i}')">Order Combo</button>
+                </div>`;
+            });
+        }
 
-<div class="review-slider">
-<div class="review-track" id="reviewTrack"></div>
-<div class="review-track">
-<div class="review-box">Amazing fragrance 🔥 - Rahul ⭐⭐⭐⭐⭐</div>
-<div class="review-box">Combo best hai - Aman ⭐⭐⭐⭐⭐</div>
-<div class="review-box">Premium smell - Pooja ⭐⭐⭐⭐⭐</div>
-<div class="review-box">Fast delivery - Neha ⭐⭐⭐⭐☆</div>
-</div>
-</div>
+        function openOrder(name, price, qtyId) {
+            selectedProduct = name;
+            selectedPrice = price;
+            selectedQty = document.getElementById(qtyId).value;
 
-</section>
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('orderPage').style.display = 'block';
+            
+            document.getElementById('selectedItemName').innerText = "Product: " + selectedProduct + " (Qty: " + selectedQty + ")";
+            document.getElementById('totalDisplay').innerText = "Total: ₹" + (selectedPrice * selectedQty);
+            window.scrollTo(0,0);
+        }
 
-<div id="popup" class="popup"></div>
+        function goBack() {
+            document.getElementById('orderPage').style.display = 'none';
+            document.getElementById('homePage').style.display = 'block';
+        }
 
-<script>
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+            const name = document.getElementById('userName').value;
+            const phone = document.getElementById('userPhone').value;
+            const address = document.getElementById('userAddress').value;
+            const city = document.getElementById('userCity').value;
+            const pin = document.getElementById('userPin').value;
 
-let perfumes=[
-{name:"Royal Oud",price:799},
-{name:"Midnight Musk",price:899},
-{name:"Fresh Citrus",price:699},
-{name:"Dark Night",price:999}
-{name:"Royal Oud",price:799,old:1999},
-{name:"Midnight Musk",price:899,old:2199},
-{name:"Fresh Citrus",price:699,old:1799},
-{name:"Dark Night",price:999,old:2499},
-{name:"Ocean Breeze",price:749,old:1899},
-{name:"Golden Spice",price:849,old:2099},
-{name:"Silver Mist",price:799,old:1999},
-{name:"Black Amber",price:999,old:2499},
-{name:"Cool Water",price:699,old:1799},
-{name:"Red Desire",price:899,old:2199},
-{name:"Blue Wave",price:749,old:1899},
-{name:"Night King",price:1099,old:2699}
-];
+            const myNumber = "918739853696"; 
+            const msg = `*NEW ORDER RECEIVED*%0A%0A*Item:* ${selectedProduct}%0A*Qty:* ${selectedQty}%0A*Total:* ₹${selectedPrice * selectedQty}%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Address:* ${address}, ${city} - ${pin}%0A*Payment:* Cash on Delivery`;
 
-let combos=[
-{name:"Luxury Combo Pack",price:1299,old:2999},
-{name:"Couple Special Combo",price:1499,old:3499},
-{name:"Party Combo Pack",price:1199,old:2799},
-{name:"Premium Gift Combo",price:1599,old:3999}
-];
+            window.open(`https://wa.me/${myNumber}?text=${msg}`, '_blank');
+        }
 
-let priceMap={};
+        // Timer
+        let time = 600;
+        setInterval(() => {
+            let m = Math.floor(time/60);
+            let s = time % 60;
+            document.getElementById('countdown').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
+            if(time > 0) time--;
+        }, 1000);
 
-let container=document.getElementById('productPage');
-let comboContainer=document.getElementById('comboPage');
-
-perfumes.forEach((p,i)=>{
-priceMap[p.name]=p.price;
-let stock=Math.floor(Math.random()*3)+2;
-
-container.innerHTML+=`
-<div class="card">
-<img src="https://source.unsplash.com/400x400/?perfume,${p.name}">
-<h3>${p.name}</h3>
-<div class="price">₹${p.price}</div>
-<select id="p${i}"><option>1</option><option>2</option></select>
-<button onclick="openForm('${p.name}','p${i}')">Order</button>
-<div class="price"><span class="old">₹${p.old}</span> <span class="new">₹${p.price}</span></div>
-<div class="urgency">⚡ Only ${stock} left</div>
-<select id="p${i}"><option>1</option><option>2</option><option>3</option></select>
-<button onclick="openForm('${p.name}','p${i}')">Order Now</button>
-</div>`;
-});
-
-combos.forEach((c,i)=>{
-priceMap[c.name]=c.price;
-
-comboContainer.innerHTML+=`
-<div class="card">
-<div class="badge">Combo</div>
-<img src="https://source.unsplash.com/400x400/?perfume,gift">
-<h3>${c.name}</h3>
-<div class="price"><span class="old">₹${c.old}</span> <span class="new">₹${c.price}</span></div>
-<select id="c${i}"><option>1</option><option>2</option></select>
-<button onclick="openForm('${c.name}','c${i}')">Order Combo</button>
-</div>`;
-});
-
-function openForm(product,qtyId){
-let qty=document.getElementById(qtyId).value;
-
-document.getElementById('productPage').style.display='none';
-document.getElementById('comboPage').style.display='none';
-document.getElementById('orderPage').style.display='block';
-
-document.getElementById('selectedProduct').value=product;
-document.getElementById('selectedQty').value=qty;
-document.getElementById('totalPrice').value="₹"+(priceMap[product]*qty);
-
-let total=priceMap[product]*qty;
-document.getElementById('totalPrice').value="Total: ₹"+total;
-
-window.scrollTo(0,0);
-}
-
-function goBack(){
-document.getElementById('orderPage').style.display='none';
-document.getElementById('productPage').style.display='grid';
-document.getElementById('comboPage').style.display='grid';
-}
-
-function submitForm(){
-alert("Order placed!");
-}
-
-/* ⭐ REVIEWS SYSTEM */
-
-let defaultReviews=[
-"Awesome perfume 🔥 - Rahul ⭐⭐⭐⭐⭐",
-"Best quality 😍 - Aman ⭐⭐⭐⭐⭐",
-"Long lasting 💯 - Neha ⭐⭐⭐⭐"
-];
-
-function loadReviews(){
-let saved=JSON.parse(localStorage.getItem("reviews"))||defaultReviews;
-let track=document.getElementById("reviewTrack");
-track.innerHTML="";
-saved.forEach(r=>{
-track.innerHTML+=`<div class="review-box">${r}</div>`;
-});
-}
-
-function addReview(){
-let name=document.getElementById("reviewName").value;
-let rating=document.getElementById("reviewRating").value;
-let text=document.getElementById("reviewText").value;
-function submitForm(e){
-e.preventDefault();
-
-if(!name||!text){alert("Fill all fields");return;}
-let name=document.getElementById('name').value;
-let phone=document.getElementById('phone').value;
-let address=document.getElementById('address').value;
-let city=document.getElementById('city').value;
-let pincode=document.getElementById('pincode').value;
-let product=document.getElementById('selectedProduct').value;
-let qty=document.getElementById('selectedQty').value;
-
-let newReview=`${text} - ${name} ${rating}`;
-let number="918739853696";
-
-let saved=JSON.parse(localStorage.getItem("reviews"))||defaultReviews;
-saved.push(newReview);
-localStorage.setItem("reviews",JSON.stringify(saved));
-let msg=`🛒 *NEW ORDER* %0A
-👤 Name: ${name} %0A
-📞 Phone: ${phone} %0A
-📍 Address: ${address}, ${city} - ${pincode} %0A
-🧴 Product: ${product} %0A
-📦 Quantity: ${qty} %0A
-💰 Payment: COD`;
-
-loadReviews();
-
-document.getElementById("reviewName").value="";
-document.getElementById("reviewText").value="";
-window.open(`https://wa.me/${number}?text=${msg}`,'_blank');
-}
-
-/* 🔥 AUTO REVIEWS */
-setInterval(()=>{
-let names=["Rohit","Aman","Priya","Karan"];
-let texts=["Amazing 🔥","Loved it 😍","Worth price","Best perfume"];
-
-let random=`${texts[Math.floor(Math.random()*texts.length)]} - ${names[Math.floor(Math.random()*names.length)]} ⭐⭐⭐⭐⭐`;
-
-let saved=JSON.parse(localStorage.getItem("reviews"))||[];
-saved.push(random);
-localStorage.setItem("reviews",JSON.stringify(saved));
-
-loadReviews();
-
-},7000);
-
-loadReviews();
-
-</script>
-
+        loadStore();
+    </script>
 </body>
 </html>
