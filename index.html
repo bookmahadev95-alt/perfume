@@ -3,199 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxe Aroma | Animated Luxury</title>
+    <title>Luxe Aroma | Mega Sale Offer</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { 
             --gold: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); 
             --solid-gold: #D4AF37;
             --dark-bg: #050505;
+            --red-offer: #ff3e3e;
         }
         
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; scroll-behavior: smooth; }
-        body { background: var(--dark-bg); color:#fff; overflow-x:hidden; position: relative; }
+        body { background: var(--dark-bg); color:#fff; overflow-x:hidden; }
 
-        /* Animated Background Orbs */
-        body::before, body::after {
-            content: ''; position: fixed; width: 300px; height: 300px;
-            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
-            border-radius: 50%; z-index: -1; animation: floatOrbs 20s infinite alternate;
-        }
-        body::after { right: -100px; bottom: -100px; animation-delay: -5s; }
-        @keyframes floatOrbs { 0% { transform: translate(0, 0); } 100% { transform: translate(50px, 100px); } }
+        /* --- FLASH SALE TIMER --- */
+        .flash-sale { background: var(--red-offer); color: white; text-align: center; padding: 8px; font-weight: 600; font-size: 13px; position: sticky; top: 0; z-index: 2000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        #timer { font-size: 16px; font-weight: 800; letter-spacing: 1px; }
 
-        /* Announcement Bar */
-        .marquee { background:#000; color:#00ffae; padding:12px; overflow:hidden; white-space:nowrap; border-bottom:1px solid #1a1a1a; font-size: 11px; letter-spacing: 2px; }
-        .marquee span { display:inline-block; animation:scroll 20s linear infinite; text-transform: uppercase; }
+        .marquee { background:#000; color:#00ffae; padding:10px; overflow:hidden; white-space:nowrap; border-bottom:1px solid #1a1a1a; font-size: 11px; letter-spacing: 1px; }
+        .marquee span { display:inline-block; animation:scroll 15s linear infinite; font-weight:600; }
         @keyframes scroll { 0% { transform:translateX(100%); } 100% { transform:translateX(-100%); } }
 
-        header { 
-            text-align:center; padding:50px 20px 30px; 
-            font-family: 'Playfair Display', serif;
-            font-size:38px; background: var(--gold);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            letter-spacing: 8px; animation: titleFade 1.5s ease-out;
-        }
-        @keyframes titleFade { from { opacity:0; letter-spacing: 20px; } to { opacity:1; letter-spacing: 8px; } }
+        header { text-align:center; padding:30px 20px 10px; font-family: 'Playfair Display', serif; font-size:35px; background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 6px; }
+
+        /* --- TRUST BADGES --- */
+        .trust-strip { display: flex; justify-content: space-around; background: #111; padding: 15px 5px; border-bottom: 1px solid #222; }
+        .trust-item { text-align: center; font-size: 9px; color: #aaa; }
+        .trust-item i { display: block; font-size: 20px; color: var(--solid-gold); margin-bottom: 5px; }
 
         /* WhatsApp Button */
-        .wa-float { 
-            position: fixed; bottom: 30px; right: 20px; background: #25D366; 
-            width: 55px; height: 55px; border-radius: 50%; display: flex; 
-            align-items: center; justify-content: center; z-index: 1000;
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4); animation: pulseWA 2s infinite;
-        }
-        @keyframes pulseWA { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        .wa-float { position: fixed; bottom: 30px; right: 20px; background: #25D366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.5); border: 2px solid #fff; }
 
-        /* Luxury Cards */
-        .products { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; }
-        .card { 
-            background: #0a0a0a; border: 1px solid #1a1a1a; padding: 20px 15px; border-radius: 4px; 
-            text-align:center; opacity: 0; transform: translateY(30px); transition: 0.6s all ease;
-        }
+        /* Product Grid */
+        .products { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 12px; }
+        .card { background: #0a0a0a; border: 1px solid #1a1a1a; padding: 15px 10px; border-radius: 8px; text-align:center; position:relative; opacity: 0; transform: translateY(20px); transition: 0.5s; }
         .card.reveal { opacity: 1; transform: translateY(0); }
-        .card img { width:100%; height:150px; object-fit:contain; transition: 0.5s; filter: brightness(0.9); }
-        .card:hover img { transform: scale(1.05); filter: brightness(1.1); }
         
-        .price { color: var(--solid-gold); font-size: 18px; font-weight: 600; margin: 12px 0; display: block; }
-        
-        /* Order Now Button with Shine */
-        .btn-luxe { 
-            background: var(--gold); border:none; padding:14px; 
-            cursor:pointer; width:100%; font-weight:700; color:#000; 
-            text-transform: uppercase; font-size: 10px; letter-spacing: 1px;
-            position: relative; overflow: hidden;
-        }
-        .btn-luxe::after {
-            content: ''; position: absolute; top: -50%; left: -100%; width: 100%; height: 200%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transform: rotate(45deg); animation: shine 3s infinite;
-        }
-        @keyframes shine { 0% { left: -100%; } 100% { left: 100%; } }
+        /* Offer Tags */
+        .offer-tag { position: absolute; top: 0; left: 0; background: var(--red-offer); color: white; padding: 4px 8px; font-size: 9px; font-weight: bold; border-radius: 0 0 8px 0; z-index: 5; animation: blink 1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+
+        .card img { width:100%; height:140px; object-fit:contain; margin-top: 10px; }
+        .price-box { margin: 10px 0; }
+        .old-price { text-decoration: line-through; color: #777; font-size: 12px; margin-right: 5px; }
+        .new-price { color: var(--solid-gold); font-size: 18px; font-weight: 700; }
+
+        /* Stock Bar */
+        .stock-info { font-size: 9px; color: #ff3e3e; margin-bottom: 5px; font-weight: 600; }
+        .stock-bar { width: 100%; height: 4px; background: #222; border-radius: 5px; margin: 5px 0 12px; overflow: hidden; }
+        .stock-fill { height: 100%; background: var(--red-offer); width: 25%; }
+
+        .btn-order { background: var(--gold); border:none; padding:12px; cursor:pointer; width:100%; font-weight:700; color:#000; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; border-radius: 4px; transition: 0.3s; }
+        .btn-order:active { transform: scale(0.95); }
+
+        /* Reviews */
+        .review-scroll { display: flex; overflow-x: auto; gap: 15px; padding: 20px; scrollbar-width: none; }
+        .review-box { min-width: 250px; background: #111; padding: 15px; border-radius: 8px; border-left: 3px solid var(--solid-gold); font-size: 12px; }
 
         /* Sales Popup */
-        #sale-popup {
-            position: fixed; bottom: 100px; left: 15px; background: rgba(0,0,0,0.95); color: #fff;
-            padding: 15px 20px; border-radius: 4px; border-left: 4px solid var(--solid-gold);
-            display: none; z-index: 1001; font-size: 11px; box-shadow: 0 15px 40px rgba(0,0,0,0.9);
-            animation: slideUp 0.6s ease;
-        }
-        @keyframes slideUp { from { opacity:0; transform: translateY(50px); } to { opacity:1; transform: translateY(0); } }
+        #sale-popup { position: fixed; bottom: 100px; left: 15px; background: white; color: black; padding: 12px 18px; border-radius: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: none; z-index: 1001; font-size: 11px; font-weight: 600; animation: slideIn 0.5s ease; border-left: 5px solid #25d366; }
+        @keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
 
-        /* Reviews Section */
-        .review-scroll { display: flex; overflow-x: auto; gap: 20px; padding: 20px; scrollbar-width: none; }
-        .review-box { 
-            min-width: 280px; background: rgba(255,255,255,0.03); 
-            padding: 25px; border: 1px solid #1a1a1a; 
-            font-size: 12px; border-left: 3px solid var(--solid-gold);
-        }
-
-        .orderPage { display:none; padding:40px 20px; animation: pageIn 0.5s ease-out; }
-        @keyframes pageIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        
-        input { 
-            width:100%; padding:18px; margin:12px 0; border: none; 
-            background:transparent; color:#fff; border-bottom: 2px solid #333;
-        }
-        input:focus { border-bottom-color: var(--solid-gold); outline: none; }
+        /* Order Page */
+        .orderPage { display:none; padding:30px 20px; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        input { width:100%; padding:15px; margin:10px 0; border: 1px solid #333; background:#111; color:#fff; border-radius: 5px; outline: none; }
+        input:focus { border-color: var(--solid-gold); }
     </style>
 </head>
 <body>
 
+    <div class="flash-sale">⚡ FLASH SALE ENDS IN: <span id="timer">09:59</span></div>
+
     <a href="https://wa.me/918739853696" class="wa-float" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:30px;" alt="WA">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:35px;" alt="WA">
     </a>
 
     <div id="sale-popup"></div>
 
     <div class="marquee">
-        <span>💎 LUXURY FRAGRANCES | FREE SHIPPING | CASH ON DELIVERY | 24H LONG LASTING 💎</span>
+        <span>🔥 LIMITED TIME OFFER: BUY ANY 2 PERFUMES & GET 1 POCKET PERFUME FREE | ALL INDIA FREE SHIPPING 🔥</span>
     </div>
 
     <header>LUXE AROMA</header>
 
+    <div class="trust-strip">
+        <div class="trust-item"><i>🚚</i>FREE SHIPPING</div>
+        <div class="trust-item"><i>💵</i>COD AVAILABLE</div>
+        <div class="trust-item"><i>🇮🇳</i>ALL INDIA</div>
+        <div class="trust-item"><i>✨</i>PREMIUM</div>
+    </div>
+
     <div id="homePage">
+        <h2 style="text-align:center; color:var(--solid-gold); margin:25px 0 10px; font-size:16px; letter-spacing:2px;">BEST SELLING FRAGRANCES</h2>
         <section id="productPage" class="products"></section>
         
-        <h2 style="text-align:center; font-family:'Playfair Display'; color:var(--solid-gold); margin:40px 0 10px; letter-spacing:3px;">PREMIUM COMBOS</h2>
+        <h2 style="text-align:center; color:var(--solid-gold); margin:30px 0 10px; font-size:16px; letter-spacing:2px;">EXCLUSIVE COMBO OFFERS</h2>
         <section id="comboPage" class="products"></section>
 
-        <h2 style="text-align:center; font-family:'Playfair Display'; color:var(--solid-gold); margin:40px 0 10px; letter-spacing:3px;">CLIENT REVIEWS</h2>
+        <h2 style="text-align:center; color:var(--solid-gold); margin:30px 0 5px; font-size:16px;">⭐ WHAT CUSTOMERS SAY</h2>
         <div class="review-scroll" id="reviewTrack"></div>
-        
         <div style="height: 100px;"></div>
     </div>
 
     <section id="orderPage" class="orderPage">
-        <p style="text-align: center; cursor: pointer; color: var(--solid-gold); margin-bottom: 40px; letter-spacing: 3px;" onclick="goBack()">← BACK TO GALLERY</p>
-        <div style="border: 1px solid #222; padding: 30px; text-align: center; margin-bottom: 30px;">
-            <h3 id="selectedItemName" style="font-family: 'Playfair Display', serif; font-size: 24px;"></h3>
-            <p id="totalDisplay" style="color: var(--solid-gold); font-size: 26px; font-weight: bold; margin-top: 10px;"></p>
+        <p style="text-align: center; color: var(--solid-gold); margin-bottom: 25px; cursor:pointer;" onclick="goBack()">← BACK TO SHOPPING</p>
+        <div style="border: 1px solid var(--solid-gold); padding: 20px; text-align: center; border-radius: 10px; background: #0a0a0a;">
+            <p style="font-size: 12px; color: #888;">Selected Item:</p>
+            <h3 id="selectedItemName" style="color:white; margin: 5px 0;"></h3>
+            <p id="totalDisplay" style="color: var(--solid-gold); font-size: 24px; font-weight: bold;"></p>
+            <p style="font-size: 11px; color: #00ffae;">✓ Free Delivery Applied</p>
         </div>
         <form onsubmit="sendToWhatsApp(event)">
-            <input id="userName" placeholder="APKA NAAM" required>
-            <input id="userPhone" type="tel" placeholder="MOBILE NUMBER" required>
-            <input id="userAddress" placeholder="FULL ADDRESS" required>
-            <input id="userCity" placeholder="CITY" required>
-            <input id="userPin" type="number" placeholder="PINCODE" required>
-            <button type="submit" class="btn-luxe" style="margin-top: 30px; padding: 20px;">CONFIRM ORDER NOW</button>
+            <input id="userName" placeholder="Apka Pura Naam" required>
+            <input id="userPhone" type="tel" placeholder="WhatsApp Number" required>
+            <input id="userAddress" placeholder="Ghar No, Area, Landmark" required>
+            <input id="userCity" placeholder="City" required>
+            <input id="userPin" type="number" placeholder="Pincode" required>
+            <button type="submit" class="btn-order" style="margin-top: 20px; padding: 18px;">Confirm Order (Cash on Delivery)</button>
         </form>
     </section>
 
     <script>
         const perfumes = [
-            {name:"Royal Oud", price:799}, {name:"Midnight Musk", price:899},
-            {name:"Ocean Blue", price:749}, {name:"Fresh Citrus", price:699},
-            {name:"Dark Night", price:999}, {name:"Golden Sand", price:849},
-            {name:"Silver Mist", price:699}, {name:"Black Leather", price:1099},
-            {name:"White Jasmine", price:799}, {name:"Velvet Rose", price:899}
+            {name:"Royal Oud", price:799, old:1999, tag:"BEST SELLER"}, 
+            {name:"Midnight Musk", price:899, old:2199, tag:"60% OFF"},
+            {name:"Ocean Blue", price:749, old:1799, tag:"LIMITED"}, 
+            {name:"Fresh Citrus", price:699, old:1599, tag:"HOT"},
+            {name:"Dark Night", price:999, old:2499, tag:"60% OFF"}, 
+            {name:"Golden Sand", price:849, old:1999, tag:"POPULAR"},
+            {name:"Silver Mist", price:699, old:1699, tag:"DEAL"}, 
+            {name:"Black Leather", price:1099, old:2699, tag:"PREMIUM"},
+            {name:"White Jasmine", price:799, old:1899, tag:"BEST"}, 
+            {name:"Velvet Rose", price:899, old:2199, tag:"60% OFF"}
         ];
 
         const reviewsData = [
-            {n:"Rahul", t:"\"Amazing quality! Smells like a 5-star hotel.\""},
-            {n:"Sneha", t:"\"Fast delivery and very luxury packaging.\""},
-            {n:"Vikram", t:"\"Midnight Musk is my new favorite. Very long lasting.\""},
-            {n:"Arjun", t:"\"Best value for money. Better than expensive brands.\""},
-            {n:"Pooja", t:"\"I gifted the combo to my husband, he loved it!\""},
-            {n:"Karan", t:"\"Premium feel and strong sillage. 10/10.\""},
-            {n:"Neha", t:"\"Original products. Delivery was very quick.\""},
-            {n:"Sumit", t:"\"Royal Oud is just majestic. Highly recommended.\""},
-            {n:"Rohan", t:"\"Ocean Blue is so fresh for summers. Loved it.\""},
-            {n:"Jatin", t:"\"Luxury at a very affordable price. Great work!\""}
+            {n:"Rahul", t:"\"Sachi mein bohot premium hai. 2 din tak kapdo se smell nahi jati!\""},
+            {n:"Sneha", t:"\"Free delivery mili aur packaging bhi bohot luxury thi. Best for gifting.\""},
+            {n:"Vikram", t:"\"Maine 2 order kiye aur 1 pocket perfume free mila. Value for money!\""},
+            {n:"Aman", t:"\"Oud ki smell bilkul asli hai. Branded se kam nahi.\""}
         ];
 
         function init() {
             const pDiv = document.getElementById('productPage');
             const cDiv = document.getElementById('comboPage');
-            const rDiv = document.getElementById('reviewTrack');
             
             perfumes.forEach((p) => {
-                pDiv.innerHTML += createCard(p, "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400");
-                cDiv.innerHTML += createCard({...p, name: p.name + " Combo", price: p.price + 500}, "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400");
+                pDiv.innerHTML += `
+                <div class="card">
+                    <div class="offer-tag">${p.tag}</div>
+                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=300">
+                    <h3 style="font-size:11px; margin-top:10px;">${p.name}</h3>
+                    <div class="price-box"><span class="old-price">₹${p.old}</span><span class="new-price">₹${p.price}</span></div>
+                    <div class="stock-info">Only ${Math.floor(Math.random()*5)+2} left in stock</div>
+                    <div class="stock-bar"><div class="stock-fill" style="width: ${Math.random()*30+10}%"></div></div>
+                    <button class="btn-order" onclick="openOrder('${p.name}', ${p.price})">Order Now</button>
+                </div>`;
             });
 
+            perfumes.slice(0, 5).forEach(p => {
+                cDiv.innerHTML += `
+                <div class="card">
+                    <div class="offer-tag">SAVER COMBO</div>
+                    <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300">
+                    <h3 style="font-size:11px; margin-top:10px;">Pack of 2: ${p.name}</h3>
+                    <div class="price-box"><span class="old-price">₹${p.old*2}</span><span class="new-price">₹${p.price+499}</span></div>
+                    <button class="btn-order" onclick="openOrder('Pack of 2: ${p.name}', ${p.price+499})">Order Combo</button>
+                </div>`;
+            });
+
+            const rDiv = document.getElementById('reviewTrack');
             reviewsData.forEach(r => {
                 rDiv.innerHTML += `<div class="review-box">⭐⭐⭐⭐⭐<br><br>${r.t}<br><br><b style="color:var(--solid-gold)">- ${r.n}</b></div>`;
             });
 
-            window.addEventListener('scroll', revealCards);
-            revealCards();
+            window.addEventListener('scroll', reveal);
+            reveal();
         }
 
-        function createCard(item, img) {
-            return `
-                <div class="card">
-                    <img src="${img}">
-                    <h3 style="font-size:10px; letter-spacing:1px; margin-top:15px;">${item.name.toUpperCase()}</h3>
-                    <span class="price">₹${item.price}</span>
-                    <button class="btn-luxe" onclick="openOrder('${item.name}', ${item.price})">Order Now</button>
-                </div>`;
-        }
-
-        function revealCards() {
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                if(card.getBoundingClientRect().top < window.innerHeight - 50) card.classList.add('reveal');
+        function reveal() {
+            document.querySelectorAll('.card').forEach(c => {
+                if(c.getBoundingClientRect().top < window.innerHeight - 50) c.classList.add('reveal');
             });
         }
 
@@ -204,39 +193,53 @@
             curN = n; curP = p;
             document.getElementById('homePage').style.display='none';
             document.getElementById('orderPage').style.display='block';
-            document.getElementById('selectedItemName').innerText = n.toUpperCase();
+            document.getElementById('selectedItemName').innerText = n;
             document.getElementById('totalDisplay').innerText = "₹" + p;
             window.scrollTo(0,0);
             history.pushState({page: "checkout"}, "Checkout", "#checkout");
         }
 
-        function goBack() { history.back(); }
+        function goBack() { 
+            if(window.location.hash === "#checkout") history.back();
+            else showHome();
+        }
         function showHome() {
             document.getElementById('orderPage').style.display='none';
             document.getElementById('homePage').style.display='block';
-            setTimeout(revealCards, 100);
         }
-        window.onpopstate = function() { showHome(); };
+        window.onpopstate = showHome;
 
         function sendToWhatsApp(e) {
             e.preventDefault();
-            const msg = `*NEW ORDER*%0A*Item:* ${curN}%0A*Total:* ₹${curP}%0A*Name:* ${document.getElementById('userName').value}%0A*Address:* ${document.getElementById('userAddress').value}%0A*Mode:* COD`;
+            const msg = `*NEW ORDER RECEIVED*%0A%0A*Product:* ${curN}%0A*Total:* ₹${curP}%0A%0A*Name:* ${document.getElementById('userName').value}%0A*Phone:* ${document.getElementById('userPhone').value}%0A*Address:* ${document.getElementById('userAddress').value}%0A*Payment:* COD (Cash on Delivery)%0A*Shipping:* FREE`;
             window.open(`https://wa.me/918739853696?text=${msg}`);
         }
 
-        function showSalePopup() {
-            const names = ["Rahul V.", "Aman S.", "Priya K.", "Vikram R.", "Siddharth"];
+        // --- TIMER LOGIC ---
+        let time = 600;
+        setInterval(() => {
+            let m = Math.floor(time/60);
+            let s = time % 60;
+            document.getElementById('timer').innerText = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+            if(time > 0) time--;
+        }, 1000);
+
+        // --- FAST SALES POPUP ---
+        function showSale() {
+            const names = ["Rahul", "Sonia", "Vikram", "Pooja", "Aman", "Neha"];
+            const cities = ["Delhi", "Mumbai", "Jaipur", "Lucknow", "Pune"];
             setInterval(() => {
                 const name = names[Math.floor(Math.random()*names.length)];
+                const city = cities[Math.floor(Math.random()*cities.length)];
                 const popup = document.getElementById('sale-popup');
-                popup.innerHTML = `⚜️ <b>${name}</b> just placed an order via COD!`;
+                popup.innerHTML = `✅ <b>${name}</b> from ${city} just ordered via COD!`;
                 popup.style.display = 'block';
-                setTimeout(() => { popup.style.display = 'none'; }, 3000);
-            }, 5000);
+                setTimeout(() => popup.style.display = 'none', 3000);
+            }, 7000);
         }
 
         init();
-        showSalePopup();
+        showSale();
     </script>
 </body>
 </html>
