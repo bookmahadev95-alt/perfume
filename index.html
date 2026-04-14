@@ -12,7 +12,9 @@ body{background:linear-gradient(135deg,#0f0f0f,#1c1c1c);color:#fff}
 .marquee span{display:inline-block;padding-left:100%;animation:scroll 12s linear infinite}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
 header{text-align:center;padding:15px;font-size:26px;font-weight:600;letter-spacing:2px}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;padding:20px}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:20px}
+@media(max-width:1000px){.products{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.products{grid-template-columns:1fr}}
 .card{background:rgba(255,255,255,0.05);backdrop-filter:blur(10px);padding:12px;border-radius:16px;text-align:center;box-shadow:0 0 15px rgba(0,255,174,0.1);transition:0.3s}
 .card:hover{transform:translateY(-5px);box-shadow:0 0 25px rgba(0,255,174,0.3)}
 .card img{width:100%;height:180px;object-fit:cover;border-radius:12px}
@@ -66,6 +68,7 @@ select{width:100%}
 <section id="orderPage" class="orderPage">
 <h2>💳 Complete Your Order</h2>
 <form onsubmit="submitForm(event)">
+<input id="state" placeholder="State" required>
 <input id="name" placeholder="Full Name" required>
 <input id="phone" placeholder="Mobile Number" required>
 <input id="address" placeholder="Full Address" required>
@@ -131,11 +134,12 @@ let name=document.getElementById('name').value;
 let phone=document.getElementById('phone').value;
 let address=document.getElementById('address').value;
 let city=document.getElementById('city').value;
+let state=document.getElementById('state').value;
 let pincode=document.getElementById('pincode').value;
 let product=document.getElementById('selectedProduct').value;
 let qty=document.getElementById('selectedQty').value;
 let number="91XXXXXXXXXX";
-let msg=`COD Order:%0AName:${name}%0APhone:${phone}%0AAddress:${address}%0ACity:${city}%0APincode:${pincode}%0AProduct:${product}%0AQty:${qty}`;
+let msg=`COD Order:%0AName:${name}%0APhone:${phone}%0AAddress:${address}%0ACity:${city}%0AState:${state}%0APincode:${pincode}%0AProduct:${product}%0AQty:${qty}`;
 window.open(`https://wa.me/${number}?text=${msg}`,'_blank');
 }
 </script>
